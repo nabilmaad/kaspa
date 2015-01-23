@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BDF020FC1A72F8AA00FE3606 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FB1A72F8AA00FE3606 /* main.m */; };
+		BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */; };
+		BDF021021A72F8AA00FE3606 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021011A72F8AA00FE3606 /* FirstViewController.m */; };
+		BDF021051A72F8AA00FE3606 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021041A72F8AA00FE3606 /* SecondViewController.m */; };
+		BDF021081A72F8AA00FE3606 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDF021061A72F8AA00FE3606 /* Main.storyboard */; };
+		BDF0210A1A72F8AA00FE3606 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDF021091A72F8AA00FE3606 /* Images.xcassets */; };
+		BDF0210D1A72F8AA00FE3606 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDF0210B1A72F8AA00FE3606 /* LaunchScreen.xib */; };
+		BDF021191A72F8AB00FE3606 /* KaspaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021181A72F8AB00FE3606 /* KaspaTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BDF021131A72F8AB00FE3606 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BDF020EE1A72F8AA00FE3606 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDF020F51A72F8AA00FE3606;
+			remoteInfo = Kaspa;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BDF020F61A72F8AA00FE3606 /* Kaspa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kaspa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDF020FA1A72F8AA00FE3606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDF020FB1A72F8AA00FE3606 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BDF020FD1A72F8AA00FE3606 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BDF021001A72F8AA00FE3606 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		BDF021011A72F8AA00FE3606 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		BDF021031A72F8AA00FE3606 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		BDF021041A72F8AA00FE3606 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		BDF021071A72F8AA00FE3606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BDF021091A72F8AA00FE3606 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BDF0210C1A72F8AA00FE3606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		BDF021121A72F8AB00FE3606 /* KaspaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaspaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDF021171A72F8AB00FE3606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDF021181A72F8AB00FE3606 /* KaspaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KaspaTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BDF020F31A72F8AA00FE3606 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDF0210F1A72F8AB00FE3606 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BDF020ED1A72F8AA00FE3606 = {
+			isa = PBXGroup;
+			children = (
+				BDF020F81A72F8AA00FE3606 /* Kaspa */,
+				BDF021151A72F8AB00FE3606 /* KaspaTests */,
+				BDF020F71A72F8AA00FE3606 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BDF020F71A72F8AA00FE3606 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BDF020F61A72F8AA00FE3606 /* Kaspa.app */,
+				BDF021121A72F8AB00FE3606 /* KaspaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BDF020F81A72F8AA00FE3606 /* Kaspa */ = {
+			isa = PBXGroup;
+			children = (
+				BDF020FD1A72F8AA00FE3606 /* AppDelegate.h */,
+				BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */,
+				BDF021001A72F8AA00FE3606 /* FirstViewController.h */,
+				BDF021011A72F8AA00FE3606 /* FirstViewController.m */,
+				BDF021031A72F8AA00FE3606 /* SecondViewController.h */,
+				BDF021041A72F8AA00FE3606 /* SecondViewController.m */,
+				BDF021061A72F8AA00FE3606 /* Main.storyboard */,
+				BDF021091A72F8AA00FE3606 /* Images.xcassets */,
+				BDF0210B1A72F8AA00FE3606 /* LaunchScreen.xib */,
+				BDF020F91A72F8AA00FE3606 /* Supporting Files */,
+			);
+			path = Kaspa;
+			sourceTree = "<group>";
+		};
+		BDF020F91A72F8AA00FE3606 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BDF020FA1A72F8AA00FE3606 /* Info.plist */,
+				BDF020FB1A72F8AA00FE3606 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BDF021151A72F8AB00FE3606 /* KaspaTests */ = {
+			isa = PBXGroup;
+			children = (
+				BDF021181A72F8AB00FE3606 /* KaspaTests.m */,
+				BDF021161A72F8AB00FE3606 /* Supporting Files */,
+			);
+			path = KaspaTests;
+			sourceTree = "<group>";
+		};
+		BDF021161A72F8AB00FE3606 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BDF021171A72F8AB00FE3606 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BDF020F51A72F8AA00FE3606 /* Kaspa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDF0211C1A72F8AB00FE3606 /* Build configuration list for PBXNativeTarget "Kaspa" */;
+			buildPhases = (
+				BDF020F21A72F8AA00FE3606 /* Sources */,
+				BDF020F31A72F8AA00FE3606 /* Frameworks */,
+				BDF020F41A72F8AA00FE3606 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Kaspa;
+			productName = Kaspa;
+			productReference = BDF020F61A72F8AA00FE3606 /* Kaspa.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BDF021111A72F8AB00FE3606 /* KaspaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDF0211F1A72F8AB00FE3606 /* Build configuration list for PBXNativeTarget "KaspaTests" */;
+			buildPhases = (
+				BDF0210E1A72F8AB00FE3606 /* Sources */,
+				BDF0210F1A72F8AB00FE3606 /* Frameworks */,
+				BDF021101A72F8AB00FE3606 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BDF021141A72F8AB00FE3606 /* PBXTargetDependency */,
+			);
+			name = KaspaTests;
+			productName = KaspaTests;
+			productReference = BDF021121A72F8AB00FE3606 /* KaspaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BDF020EE1A72F8AA00FE3606 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Nabil Maadarani";
+				TargetAttributes = {
+					BDF020F51A72F8AA00FE3606 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					BDF021111A72F8AB00FE3606 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = BDF020F51A72F8AA00FE3606;
+					};
+				};
+			};
+			buildConfigurationList = BDF020F11A72F8AA00FE3606 /* Build configuration list for PBXProject "Kaspa" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BDF020ED1A72F8AA00FE3606;
+			productRefGroup = BDF020F71A72F8AA00FE3606 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BDF020F51A72F8AA00FE3606 /* Kaspa */,
+				BDF021111A72F8AB00FE3606 /* KaspaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BDF020F41A72F8AA00FE3606 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDF021081A72F8AA00FE3606 /* Main.storyboard in Resources */,
+				BDF0210D1A72F8AA00FE3606 /* LaunchScreen.xib in Resources */,
+				BDF0210A1A72F8AA00FE3606 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDF021101A72F8AB00FE3606 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BDF020F21A72F8AA00FE3606 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDF021051A72F8AA00FE3606 /* SecondViewController.m in Sources */,
+				BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */,
+				BDF021021A72F8AA00FE3606 /* FirstViewController.m in Sources */,
+				BDF020FC1A72F8AA00FE3606 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDF0210E1A72F8AB00FE3606 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDF021191A72F8AB00FE3606 /* KaspaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BDF021141A72F8AB00FE3606 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDF020F51A72F8AA00FE3606 /* Kaspa */;
+			targetProxy = BDF021131A72F8AB00FE3606 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BDF021061A72F8AA00FE3606 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BDF021071A72F8AA00FE3606 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BDF0210B1A72F8AA00FE3606 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BDF0210C1A72F8AA00FE3606 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BDF0211A1A72F8AB00FE3606 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BDF0211B1A72F8AB00FE3606 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BDF0211D1A72F8AB00FE3606 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Kaspa/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BDF0211E1A72F8AB00FE3606 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Kaspa/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		BDF021201A72F8AB00FE3606 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = KaspaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kaspa.app/Kaspa";
+			};
+			name = Debug;
+		};
+		BDF021211A72F8AB00FE3606 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = KaspaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kaspa.app/Kaspa";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BDF020F11A72F8AA00FE3606 /* Build configuration list for PBXProject "Kaspa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDF0211A1A72F8AB00FE3606 /* Debug */,
+				BDF0211B1A72F8AB00FE3606 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDF0211C1A72F8AB00FE3606 /* Build configuration list for PBXNativeTarget "Kaspa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDF0211D1A72F8AB00FE3606 /* Debug */,
+				BDF0211E1A72F8AB00FE3606 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BDF0211F1A72F8AB00FE3606 /* Build configuration list for PBXNativeTarget "KaspaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDF021201A72F8AB00FE3606 /* Debug */,
+				BDF021211A72F8AB00FE3606 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BDF020EE1A72F8AA00FE3606 /* Project object */;
+}
