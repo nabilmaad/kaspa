@@ -1,0 +1,11 @@
+An iOS app that gives users their -customizable- morning briefing using voice, and that is completely controlled using the Myo armband (see https://www.thalmic.com/en/myo/). This includes weather, breaking news, sports news they’re subscribed to, driving conditions, etc. Ideally, if time permits, it also reads emails they received while sleeping.
+
+Here’s a use-case to clarify how it would work:
+When the user wakes up, instead of spending a considerable amount of time manually checking their phone, they launch the app and start getting ready (for work, school, etc). The app starts going through the "channels" (categories) they’re subscribed to, and initially only speaks briefly on a topic (general weather description, title of a news article, email sender & subject, etc). If the user wants to hear more details on the topic, he/she performs a hand gesture, and the Myo will instruct the app to start speaking the details. Also, if the user wants to go to the next/previous topic, he/she waves in/out and the app will skip to the next/previous topic. Another hand gesture will allow the user to save a topic to be listened to later on. This way, users are getting the information they need without having to hold their phones to read everything.
+Alternate use-cases: replace the user waking up by a person driving (getting all necessary information without looking at or touching the phone), or a blind person who can’t easily interface with the touch screen.
+
+Here are some of the problems that this software solves:
+- A trend that I noticed in North America is that most employees spend a lot of time checking their email/news/random things when they first come in to work. The first 30-45 minutes of the 8 hours/day are wasted on such things, and by using this app, the employee gets to work already up-to-date and ready to start working right away.
+- Efficiency/multi-tasking: the user is able to do anything else while getting informed.
+- Hands on the wheel: the user can choose to be briefed while driving to work (instead of after waking up). Thanks to the voice output and the Myo acting as a remote control, the user keeps his/her eyes on the road, and hands on the wheel.
+- Serving blind people: this app would work great for visually impaired individuals as they don’t have to look at/interact with a screen.
