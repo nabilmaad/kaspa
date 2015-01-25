@@ -1,18 +1,18 @@
 //
-//  FirstViewController.m
+//  KaspaViewController.m
 //  Kaspa
 //
 //  Created by Nabil Maadarani on 2015-01-23.
 //  Copyright (c) 2015 Nabil Maadarani. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "KaspaViewController.h"
 
-@interface FirstViewController ()
+@interface KaspaViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation KaspaViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

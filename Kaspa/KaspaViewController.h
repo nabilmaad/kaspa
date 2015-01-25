@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  KaspaViewController.h
 //  Kaspa
 //
 //  Created by Nabil Maadarani on 2015-01-23.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface KaspaViewController : UIViewController
 
 
 @end

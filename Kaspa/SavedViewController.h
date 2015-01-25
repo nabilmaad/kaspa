@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  SavedViewController.h
 //  Kaspa
 //
 //  Created by Nabil Maadarani on 2015-01-23.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
-
+@interface SavedViewController : UIViewController
 
 @end
-
