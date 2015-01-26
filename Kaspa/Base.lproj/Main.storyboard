@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pqa-y8-GAN">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Configuration-->
@@ -96,7 +97,7 @@
         <!--Kaspa-->
         <scene sceneID="QZy-u4-rQq">
             <objects>
-                <viewController id="soZ-Hv-EbV" sceneMemberID="viewController">
+                <viewController id="soZ-Hv-EbV" customClass="KaspaViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CIY-wM-aY3"/>
                         <viewControllerLayoutGuide type="bottom" id="Lcq-fG-gt1"/>
@@ -104,7 +105,99 @@
                     <view key="view" contentMode="scaleToFill" id="Xf6-49-avP">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="joQ-gb-tKt">
+                                <rect key="frame" x="213" y="28" width="175" height="175"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="175" id="Cz2-x0-WhO"/>
+                                    <constraint firstAttribute="width" constant="175" id="Sjq-XE-Xu7"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7B4-z2-5aN">
+                                <rect key="frame" x="279" y="211" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQa-o2-a5d">
+                                <rect key="frame" x="279" y="424" width="42" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="qkf-XX-Mtb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qkf-XX-Mtb"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2NG-dV-4Uh">
+                                <rect key="frame" x="262" y="513" width="77" height="30"/>
+                                <state key="normal" title="Play/Pause">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-Tr-JTr">
+                                <rect key="frame" x="16" y="28" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEXT UP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zWa-1E-PNM">
+                                <rect key="frame" x="16" y="291" width="71.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NEc-IE-vx5">
+                                <rect key="frame" x="238" y="291" width="125" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="125" id="V1i-mV-eLz"/>
+                                    <constraint firstAttribute="height" constant="125" id="pgy-ot-6vt"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="NEc-IE-vx5" secondAttribute="centerX" id="0nz-6c-Drl"/>
+                            <constraint firstAttribute="centerX" secondItem="2NG-dV-4Uh" secondAttribute="centerX" id="1bd-NM-OOC"/>
+                            <constraint firstItem="2NG-dV-4Uh" firstAttribute="centerX" secondItem="NEc-IE-vx5" secondAttribute="centerX" id="8cy-xv-TLt"/>
+                            <constraint firstItem="b0w-Tr-JTr" firstAttribute="leading" secondItem="Xf6-49-avP" secondAttribute="leadingMargin" id="CVu-cM-FhN"/>
+                            <constraint firstItem="zWa-1E-PNM" firstAttribute="leading" secondItem="b0w-Tr-JTr" secondAttribute="leading" id="Cmw-dZ-PVy"/>
+                            <constraint firstItem="joQ-gb-tKt" firstAttribute="top" secondItem="b0w-Tr-JTr" secondAttribute="top" id="FO2-1J-ozI"/>
+                            <constraint firstItem="NEc-IE-vx5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7B4-z2-5aN" secondAttribute="bottom" constant="8" symbolic="YES" id="HfG-kC-vSw"/>
+                            <constraint firstItem="7B4-z2-5aN" firstAttribute="top" secondItem="joQ-gb-tKt" secondAttribute="bottom" constant="8" symbolic="YES" id="J5i-bo-IEz"/>
+                            <constraint firstItem="bQa-o2-a5d" firstAttribute="top" secondItem="NEc-IE-vx5" secondAttribute="bottom" constant="8" symbolic="YES" id="J94-e3-AOg"/>
+                            <constraint firstItem="2NG-dV-4Uh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bQa-o2-a5d" secondAttribute="bottom" constant="8" symbolic="YES" id="MjA-Yf-0ci"/>
+                            <constraint firstItem="Lcq-fG-gt1" firstAttribute="top" secondItem="2NG-dV-4Uh" secondAttribute="bottom" constant="8" symbolic="YES" id="Ne3-Q7-hjY"/>
+                            <constraint firstItem="NEc-IE-vx5" firstAttribute="top" secondItem="zWa-1E-PNM" secondAttribute="top" id="S2p-0Z-V90"/>
+                            <constraint firstItem="joQ-gb-tKt" firstAttribute="leading" secondItem="NEc-IE-vx5" secondAttribute="leading" id="akI-1Z-ICF"/>
+                            <constraint firstAttribute="centerX" secondItem="bQa-o2-a5d" secondAttribute="centerX" id="eBp-vY-69F"/>
+                            <constraint firstAttribute="centerX" secondItem="joQ-gb-tKt" secondAttribute="centerX" id="eK8-88-G55"/>
+                            <constraint firstAttribute="centerX" secondItem="7B4-z2-5aN" secondAttribute="centerX" id="esF-wh-Hit"/>
+                            <constraint firstItem="Lcq-fG-gt1" firstAttribute="top" secondItem="bQa-o2-a5d" secondAttribute="bottom" constant="123" id="iTQ-or-xAK"/>
+                            <constraint firstItem="joQ-gb-tKt" firstAttribute="top" secondItem="CIY-wM-aY3" secondAttribute="bottom" constant="8" symbolic="YES" id="mLb-c6-kdb"/>
+                            <constraint firstItem="bQa-o2-a5d" firstAttribute="top" secondItem="NEc-IE-vx5" secondAttribute="bottom" constant="8" id="oze-8H-VrK"/>
+                            <constraint firstItem="NEc-IE-vx5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7B4-z2-5aN" secondAttribute="bottom" constant="8" symbolic="YES" id="rZf-Qb-aEI"/>
+                            <constraint firstItem="NEc-IE-vx5" firstAttribute="top" secondItem="7B4-z2-5aN" secondAttribute="bottom" constant="42" id="uNn-Y4-ZL1"/>
+                            <constraint firstItem="2NG-dV-4Uh" firstAttribute="top" secondItem="bQa-o2-a5d" secondAttribute="bottom" constant="85" id="uXl-vu-H9b"/>
+                            <constraint firstItem="bQa-o2-a5d" firstAttribute="top" secondItem="NEc-IE-vx5" secondAttribute="bottom" constant="8" symbolic="YES" id="udd-bL-suW"/>
+                            <constraint firstItem="NEc-IE-vx5" firstAttribute="top" secondItem="7B4-z2-5aN" secondAttribute="bottom" priority="500" constant="60" id="wKB-Dw-jpu"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="akI-1Z-ICF"/>
+                                <exclude reference="rZf-Qb-aEI"/>
+                                <exclude reference="uNn-Y4-ZL1"/>
+                                <exclude reference="oze-8H-VrK"/>
+                                <exclude reference="udd-bL-suW"/>
+                                <exclude reference="iTQ-or-xAK"/>
+                                <exclude reference="8cy-xv-TLt"/>
+                                <exclude reference="uXl-vu-H9b"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Kaspa" id="Fb5-7B-wHx"/>
                 </viewController>
@@ -115,7 +208,7 @@
         <!--Saved-->
         <scene sceneID="Hj5-eR-vJn">
             <objects>
-                <viewController id="WlC-YY-gHt" sceneMemberID="viewController">
+                <viewController id="WlC-YY-gHt" customClass="SavedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bKE-Zt-qPh"/>
                         <viewControllerLayoutGuide type="bottom" id="RFq-xN-UIv"/>
