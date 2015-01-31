@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */; };
 		BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */; };
 		BDF020FC1A72F8AA00FE3606 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FB1A72F8AA00FE3606 /* main.m */; };
 		BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */; };
@@ -15,7 +16,6 @@
 		BDF0210A1A72F8AA00FE3606 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDF021091A72F8AA00FE3606 /* Images.xcassets */; };
 		BDF0210D1A72F8AA00FE3606 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDF0210B1A72F8AA00FE3606 /* LaunchScreen.xib */; };
 		BDF021191A72F8AB00FE3606 /* KaspaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021181A72F8AB00FE3606 /* KaspaTests.m */; };
-		BDF021261A73024500FE3606 /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021251A73024500FE3606 /* SavedViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD81E1A81A7C3C01001B13A0 /* SavedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedTableViewController.h; sourceTree = "<group>"; };
+		BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedTableViewController.m; sourceTree = "<group>"; };
 		BD8993A31A75A40300CCC0B0 /* ConfigurationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTableViewController.h; sourceTree = "<group>"; };
 		BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTableViewController.m; sourceTree = "<group>"; };
 		BDF020F61A72F8AA00FE3606 /* Kaspa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kaspa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +46,6 @@
 		BDF021121A72F8AB00FE3606 /* KaspaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaspaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF021171A72F8AB00FE3606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDF021181A72F8AB00FE3606 /* KaspaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KaspaTests.m; sourceTree = "<group>"; };
-		BDF021241A73024500FE3606 /* SavedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedViewController.h; sourceTree = "<group>"; };
-		BDF021251A73024500FE3606 /* SavedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,10 +127,10 @@
 		BDF021271A73029800FE3606 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BD81E1A81A7C3C01001B13A0 /* SavedTableViewController.h */,
+				BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */,
 				BD8993A31A75A40300CCC0B0 /* ConfigurationTableViewController.h */,
 				BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */,
-				BDF021241A73024500FE3606 /* SavedViewController.h */,
-				BDF021251A73024500FE3606 /* SavedViewController.m */,
 				BDF021031A72F8AA00FE3606 /* KaspaViewController.h */,
 				BDF021041A72F8AA00FE3606 /* KaspaViewController.m */,
 			);
@@ -241,8 +241,8 @@
 				BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */,
 				BDF021051A72F8AA00FE3606 /* KaspaViewController.m in Sources */,
 				BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */,
+				BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */,
 				BDF020FC1A72F8AA00FE3606 /* main.m in Sources */,
-				BDF021261A73024500FE3606 /* SavedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
