@@ -7,6 +7,8 @@
 //
 
 #import "ConfigurationTableViewController.h"
+#import "FromTimePickerViewController.h"
+#import "ToTimePickerViewController.h"
 
 @interface ConfigurationTableViewController ()
 
@@ -88,14 +90,44 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
+
+- (void)prepareFromTimePickerViewController:(FromTimePickerViewController *)vc {
+#warning Static time used
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setHour:22];
+    [comps setMinute:00];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [gregorian dateFromComponents:comps];
+    vc.myFromTime = date;
+}
+
+- (void)prepareToTimePickerViewController:(ToTimePickerViewController *)vc {
+#warning Static time used
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setHour:7];
+    [comps setMinute:00];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [gregorian dateFromComponents:comps];
+    vc.myToTime = date;
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"Show From Time"]) {
+        if([segue.destinationViewController isKindOfClass:[FromTimePickerViewController class]]) {
+            [self prepareFromTimePickerViewController:segue.destinationViewController];
+        }
+    } else if([segue.identifier isEqualToString:@"Show To Time"]) {
+        if([segue.destinationViewController isKindOfClass:[ToTimePickerViewController class]]) {
+            [self prepareToTimePickerViewController:segue.destinationViewController];
+        }
+    }
 }
-*/
 
 @end

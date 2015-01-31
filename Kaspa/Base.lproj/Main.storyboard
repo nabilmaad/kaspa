@@ -16,21 +16,24 @@
                         <sections>
                             <tableViewSection headerTitle="DATA COLLECTION:" footerTitle="Kaspa will collect news you're subscribed to during this period of time." id="2hz-br-L00">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="ZQZ-jZ-NhE" style="IBUITableViewCellStyleDefault" id="2Ki-9M-oQC">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ZQZ-jZ-NhE" style="IBUITableViewCellStyleDefault" id="2Ki-9M-oQC">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Ki-9M-oQC" id="0ce-e0-jBT">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZQZ-jZ-NhE">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="LLo-Y0-7KH" kind="show" identifier="Show From Time" id="1ok-5J-3Qr"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Qro-Ln-pQ4" style="IBUITableViewCellStyleDefault" id="Vvu-tm-wcF">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Qro-Ln-pQ4" style="IBUITableViewCellStyleDefault" id="Vvu-tm-wcF">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vvu-tm-wcF" id="cDO-o4-LwR">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -43,12 +46,15 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="z0W-dz-FOw" kind="show" identifier="Show To Time" id="pXB-dD-JXb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection footerTitle="Enable/Disable channels to be briefed about." id="lGR-1K-wl3">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="obY-2N-aAI" style="IBUITableViewCellStyleDefault" id="8WW-Y4-0UL">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="obY-2N-aAI" style="IBUITableViewCellStyleDefault" id="8WW-Y4-0UL">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8WW-Y4-0UL" id="Na6-g1-waj">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -66,7 +72,7 @@
                             </tableViewSection>
                             <tableViewSection footerTitle="Optionally connect a Myo armband to control your Kaspa briefing with hand gestures." id="bcv-DF-Sv1">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Ys2-He-WL7" style="IBUITableViewCellStyleDefault" id="F1P-n3-zJl">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ys2-He-WL7" style="IBUITableViewCellStyleDefault" id="F1P-n3-zJl">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F1P-n3-zJl" id="sEd-4K-mcK">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -93,6 +99,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1X-0f-a1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="477" y="-960"/>
+        </scene>
+        <!--Start Collection-->
+        <scene sceneID="o6f-Gt-Xyr">
+            <objects>
+                <viewController title="Start Collection" id="LLo-Y0-7KH" customClass="FromTimePickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MHA-ly-xYT"/>
+                        <viewControllerLayoutGuide type="bottom" id="sjB-pC-av9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OPx-fz-TNk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-pp-WHZ">
+                                <rect key="frame" x="0.0" y="381" width="600" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="444377922.314861">
+                                    <!--2015-01-31 06:18:42 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="fromTimePickerChanged:" destination="LLo-Y0-7KH" eventType="valueChanged" id="qFB-uO-5jK"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From 00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGC-PE-2Ph">
+                                <rect key="frame" x="0.0" y="204" width="600" height="37"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="5pm-gB-MVO"/>
+                                    <constraint firstAttribute="height" constant="37" id="Ej9-dj-ZJ5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Ej9-dj-ZJ5"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="fGC-PE-2Ph" firstAttribute="trailing" secondItem="ffx-pp-WHZ" secondAttribute="trailing" id="DKp-LZ-7Oj"/>
+                            <constraint firstItem="fGC-PE-2Ph" firstAttribute="leading" secondItem="ffx-pp-WHZ" secondAttribute="leading" id="E51-Nx-fxU"/>
+                            <constraint firstItem="sjB-pC-av9" firstAttribute="top" secondItem="ffx-pp-WHZ" secondAttribute="bottom" constant="8" symbolic="YES" id="Gi2-zB-2T5"/>
+                            <constraint firstAttribute="trailing" secondItem="ffx-pp-WHZ" secondAttribute="trailing" id="RAW-aO-5aO"/>
+                            <constraint firstItem="ffx-pp-WHZ" firstAttribute="top" secondItem="fGC-PE-2Ph" secondAttribute="bottom" constant="140" id="aUG-ic-y6h"/>
+                            <constraint firstItem="ffx-pp-WHZ" firstAttribute="leading" secondItem="OPx-fz-TNk" secondAttribute="leading" id="eJz-zH-np6"/>
+                            <constraint firstItem="fGC-PE-2Ph" firstAttribute="top" secondItem="MHA-ly-xYT" secondAttribute="bottom" constant="140" id="tgT-hV-59J"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="tgT-hV-59J"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="fromTimeLabel" destination="fGC-PE-2Ph" id="6aw-k7-kFY"/>
+                        <outlet property="fromTimePicker" destination="ffx-pp-WHZ" id="qOz-fu-Lpn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ffi-qU-OPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1203" y="-1516"/>
         </scene>
         <!--Kaspa-->
         <scene sceneID="QZy-u4-rQq">
@@ -312,6 +381,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NPB-Bi-cw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-275" y="488"/>
+        </scene>
+        <!--Stop Collection-->
+        <scene sceneID="9WU-FU-4Pn">
+            <objects>
+                <viewController title="Stop Collection" id="z0W-dz-FOw" customClass="ToTimePickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z72-mY-Wfl"/>
+                        <viewControllerLayoutGuide type="bottom" id="GM1-US-PWg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OfN-Nv-Z8t">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="9WZ-kd-41i">
+                                <rect key="frame" x="0.0" y="381" width="600" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="444377922.314861">
+                                    <!--2015-01-31 06:18:42 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="toTimePickerChanged:" destination="z0W-dz-FOw" eventType="valueChanged" id="8yy-8L-Gx3"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To 00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzv-zt-aZ5">
+                                <rect key="frame" x="0.0" y="204" width="600" height="37"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="3Vz-Rk-e4K"/>
+                                    <constraint firstAttribute="height" constant="37" id="Fzc-7e-cZJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3Vz-Rk-e4K"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bzv-zt-aZ5" firstAttribute="top" secondItem="Z72-mY-Wfl" secondAttribute="bottom" constant="140" id="8ND-QX-MZX"/>
+                            <constraint firstAttribute="trailing" secondItem="9WZ-kd-41i" secondAttribute="trailing" id="asm-eE-E8B"/>
+                            <constraint firstItem="9WZ-kd-41i" firstAttribute="top" secondItem="bzv-zt-aZ5" secondAttribute="bottom" constant="140" id="bbC-jN-h1D"/>
+                            <constraint firstItem="9WZ-kd-41i" firstAttribute="leading" secondItem="OfN-Nv-Z8t" secondAttribute="leading" id="eZi-t6-Ckt"/>
+                            <constraint firstItem="GM1-US-PWg" firstAttribute="top" secondItem="9WZ-kd-41i" secondAttribute="bottom" constant="8" symbolic="YES" id="hIm-97-bU6"/>
+                            <constraint firstItem="bzv-zt-aZ5" firstAttribute="leading" secondItem="9WZ-kd-41i" secondAttribute="leading" id="sLD-ft-g52"/>
+                            <constraint firstItem="bzv-zt-aZ5" firstAttribute="trailing" secondItem="9WZ-kd-41i" secondAttribute="trailing" id="sui-0W-tZ5"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8ND-QX-MZX"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="toTimeLabel" destination="bzv-zt-aZ5" id="y1V-TQ-jFF"/>
+                        <outlet property="toTimePicker" destination="9WZ-kd-41i" id="dKQ-Od-2se"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5SZ-3W-qrD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1203" y="-832"/>
         </scene>
     </scenes>
     <resources>
