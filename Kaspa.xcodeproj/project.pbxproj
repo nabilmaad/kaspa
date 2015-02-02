@@ -15,6 +15,7 @@
 		BD81E1B11A7CB9AC001B13A0 /* ToTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B01A7CB9AC001B13A0 /* ToTimePickerViewController.m */; };
 		BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */; };
 		BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */; };
+		BDA05FCF1A7FE0EE008597CE /* GenericTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA05FCE1A7FE0EE008597CE /* GenericTests.m */; };
 		BDF020FC1A72F8AA00FE3606 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FB1A72F8AA00FE3606 /* main.m */; };
 		BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */; };
 		BDF021051A72F8AA00FE3606 /* KaspaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021041A72F8AA00FE3606 /* KaspaViewController.m */; };
@@ -48,6 +49,7 @@
 		BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelsTableViewController.m; sourceTree = "<group>"; };
 		BD8993A31A75A40300CCC0B0 /* ConfigurationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTableViewController.h; sourceTree = "<group>"; };
 		BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTableViewController.m; sourceTree = "<group>"; };
+		BDA05FCE1A7FE0EE008597CE /* GenericTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTests.m; sourceTree = "<group>"; };
 		BDF020F61A72F8AA00FE3606 /* Kaspa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kaspa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF020FA1A72F8AA00FE3606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDF020FB1A72F8AA00FE3606 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		BDF021151A72F8AB00FE3606 /* KaspaTests */ = {
 			isa = PBXGroup;
 			children = (
+				BDA05FCE1A7FE0EE008597CE /* GenericTests.m */,
 				BDF021181A72F8AB00FE3606 /* KaspaTests.m */,
 				BDF021161A72F8AB00FE3606 /* Supporting Files */,
 			);
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDF021191A72F8AB00FE3606 /* KaspaTests.m in Sources */,
+				BDA05FCF1A7FE0EE008597CE /* GenericTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
