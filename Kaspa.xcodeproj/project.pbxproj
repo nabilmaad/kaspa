@@ -225,6 +225,11 @@
 					BDF020F51A72F8AA00FE3606 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = WB8CM5L7ZT;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					BDF021111A72F8AB00FE3606 = {
 						CreatedOnToolsVersion = 6.1.1;
