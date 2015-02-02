@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <MyoKit/MyoKit.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Instantiate the hub using the singleton accessor, and set the applicationIdentifier of our application.
+    [[TLMHub sharedHub] setApplicationIdentifier:@"com.Nabil.Kaspa"];
     return YES;
 }
 

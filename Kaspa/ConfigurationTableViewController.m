@@ -9,6 +9,7 @@
 #import "ConfigurationTableViewController.h"
 #import "FromTimePickerViewController.h"
 #import "ToTimePickerViewController.h"
+#import <MyoKit/MyoKit.h>
 
 @interface ConfigurationTableViewController ()
 
@@ -90,6 +91,14 @@
 }
 */
 
+#pragma mark - cell selection behaviour
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if([cell.reuseIdentifier isEqualToString:@"Connect Myo"])
+        [self pushMyoConnectionView];
+}
+
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -117,6 +126,11 @@
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *date = [gregorian dateFromComponents:comps];
     vc.myToTime = date;
+}
+
+-(void)pushMyoConnectionView {
+    TLMSettingsViewController *settings = [[TLMSettingsViewController alloc] init];
+    [self.navigationController pushViewController:settings animated:YES];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

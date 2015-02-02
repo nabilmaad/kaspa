@@ -68,14 +68,14 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="QlW-TZ-iCG" kind="show" id="hlm-je-ygh"/>
+                                            <segue destination="QlW-TZ-iCG" kind="show" identifier="Show Channels" id="hlm-je-ygh"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection footerTitle="Optionally connect a Myo armband to control your Kaspa briefing with hand gestures." id="bcv-DF-Sv1">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ys2-He-WL7" style="IBUITableViewCellStyleDefault" id="F1P-n3-zJl">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Connect Myo" textLabel="Ys2-He-WL7" style="IBUITableViewCellStyleDefault" id="F1P-n3-zJl">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F1P-n3-zJl" id="sEd-4K-mcK">
                                             <autoresizingMask key="autoresizingMask"/>
