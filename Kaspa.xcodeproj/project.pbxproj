@@ -10,6 +10,7 @@
 		BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */; };
 		BD81E1AD1A7CB0BA001B13A0 /* FromTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1AC1A7CB0BA001B13A0 /* FromTimePickerViewController.m */; };
 		BD81E1B11A7CB9AC001B13A0 /* ToTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B01A7CB9AC001B13A0 /* ToTimePickerViewController.m */; };
+		BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */; };
 		BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */; };
 		BDF020FC1A72F8AA00FE3606 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FB1A72F8AA00FE3606 /* main.m */; };
 		BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */; };
@@ -37,6 +38,8 @@
 		BD81E1AC1A7CB0BA001B13A0 /* FromTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromTimePickerViewController.m; sourceTree = "<group>"; };
 		BD81E1AF1A7CB9AC001B13A0 /* ToTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToTimePickerViewController.h; sourceTree = "<group>"; };
 		BD81E1B01A7CB9AC001B13A0 /* ToTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToTimePickerViewController.m; sourceTree = "<group>"; };
+		BD81E1B21A7EEF66001B13A0 /* ChannelsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelsTableViewController.h; sourceTree = "<group>"; };
+		BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelsTableViewController.m; sourceTree = "<group>"; };
 		BD8993A31A75A40300CCC0B0 /* ConfigurationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTableViewController.h; sourceTree = "<group>"; };
 		BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTableViewController.m; sourceTree = "<group>"; };
 		BDF020F61A72F8AA00FE3606 /* Kaspa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kaspa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +78,8 @@
 		BD81E1AE1A7CB7C7001B13A0 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				BD81E1B21A7EEF66001B13A0 /* ChannelsTableViewController.h */,
+				BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */,
 				BD81E1AB1A7CB0BA001B13A0 /* FromTimePickerViewController.h */,
 				BD81E1AC1A7CB0BA001B13A0 /* FromTimePickerViewController.m */,
 				BD81E1AF1A7CB9AC001B13A0 /* ToTimePickerViewController.h */,
@@ -259,6 +264,7 @@
 				BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */,
 				BDF021051A72F8AA00FE3606 /* KaspaViewController.m in Sources */,
 				BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */,
+				BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */,
 				BD81E1AD1A7CB0BA001B13A0 /* FromTimePickerViewController.m in Sources */,
 				BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */,
 				BDF020FC1A72F8AA00FE3606 /* main.m in Sources */,
