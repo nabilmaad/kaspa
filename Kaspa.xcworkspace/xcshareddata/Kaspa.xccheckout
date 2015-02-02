@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B7C3373E-2A22-4B85-B755-7006EEBE2937</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Kaspa</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D568441D0B3D6E4816093FEB8E4FBCC3E50517AD</key>
+		<string>github.com:nabilmaad/kaspa</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Kaspa.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D568441D0B3D6E4816093FEB8E4FBCC3E50517AD</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:nabilmaad/kaspa</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D568441D0B3D6E4816093FEB8E4FBCC3E50517AD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D568441D0B3D6E4816093FEB8E4FBCC3E50517AD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Kaspa</string>
+		</dict>
+	</array>
+</dict>
+</plist>
