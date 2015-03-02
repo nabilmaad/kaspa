@@ -9,6 +9,10 @@
 #import "KaspaViewController.h"
 
 @interface KaspaViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *currentImage;
+@property (weak, nonatomic) IBOutlet UIImageView *nextImage;
+@property (weak, nonatomic) IBOutlet UILabel *currentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nextLabel;
 
 @end
 
@@ -17,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSLog(@"My ID is %@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
+    // 906C314B-F1C5-4BFD-B872-845BE0966A81
 }
 
 - (void)didReceiveMemoryWarning {

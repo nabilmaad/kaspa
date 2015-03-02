@@ -27,6 +27,16 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Unselect the selected row if any
+    NSIndexPath* selection = [self.tableView indexPathForSelectedRow];
+    if (selection)
+        [self.tableView deselectRowAtIndexPath:selection animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -99,33 +109,31 @@
         [self pushMyoConnectionView];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
 
 #pragma mark - Navigation
 
 - (void)prepareFromTimePickerViewController:(FromTimePickerViewController *)vc {
-#warning Static time used
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    [comps setHour:22];
-    [comps setMinute:00];
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDate *date = [gregorian dateFromComponents:comps];
-    vc.myFromTime = date;
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"] == nil ||
+       [[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"] == (id)[NSNull null])
+        vc.myFromTime = [timeFormat dateFromString:@"22:00"];
+    else
+        vc.myFromTime = [timeFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"]];
 }
 
 - (void)prepareToTimePickerViewController:(ToTimePickerViewController *)vc {
-#warning Static time used
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    [comps setHour:7];
-    [comps setMinute:00];
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDate *date = [gregorian dateFromComponents:comps];
-    vc.myToTime = date;
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"] == nil ||
+       [[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"] == (id)[NSNull null])
+        vc.myToTime = [timeFormat dateFromString:@"07:00"];
+    else
+        vc.myToTime = [timeFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"]];
 }
 
 -(void)pushMyoConnectionView {

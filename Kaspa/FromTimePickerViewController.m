@@ -31,6 +31,15 @@
 
 - (IBAction)fromTimePickerChanged:(UIDatePicker *)sender {
     [self updateFromTimeLabel:sender.date];
+    
+    // Save to preferences
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[timeFormat stringFromDate:sender.date] forKey:@"fromTime"];
+    [userDefaults synchronize];
 }
 
 /*

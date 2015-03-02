@@ -272,6 +272,12 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Kaspa" id="Fb5-7B-wHx"/>
+                    <connections>
+                        <outlet property="currentImage" destination="joQ-gb-tKt" id="0Pc-qa-BXr"/>
+                        <outlet property="currentLabel" destination="7B4-z2-5aN" id="CAr-T7-VkD"/>
+                        <outlet property="nextImage" destination="NEc-IE-vx5" id="ovv-R4-Wt4"/>
+                        <outlet property="nextLabel" destination="bQa-o2-a5d" id="URG-qI-MMw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpc-nq-PMK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

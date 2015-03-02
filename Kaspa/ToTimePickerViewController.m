@@ -29,13 +29,22 @@
 
 - (void)updateToTimeLabel:(NSDate *)time {
     NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-    [timeFormat setDateFormat:@"HH:mm a"];
+    [timeFormat setDateFormat:@"HH:mm"];
     
     self.toTimeLabel.text = [NSString stringWithFormat:@"To %@", [timeFormat stringFromDate:time]];
 }
 
 - (IBAction)toTimePickerChanged:(UIDatePicker *)sender {
     [self updateToTimeLabel:sender.date];
+    
+    // Save to preferences
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[timeFormat stringFromDate:sender.date] forKey:@"toTime"];
+    [userDefaults synchronize];
 }
 
 /*
