@@ -54,8 +54,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
-        // Add a switch
+        // Add a switch with correct state
         UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
+        [switchview setOn:[[NSUserDefaults standardUserDefaults] boolForKey:
+                           [NSString stringWithFormat:@"channel%ld", (long)indexPath.row]]];
         cell.accessoryView = switchview;
         [switchview addTarget:self
                      action:@selector(switchIsToggled:)
@@ -93,8 +95,10 @@
     // Find the state of the switch
     NSString *state = [sender isOn] == YES ? @"YES" : @"NO";
     
-    // Print message
-    NSLog(@"%@", [NSString stringWithFormat:@"Row %ld just got turned %@", (long)toggleRow, state]);
+    // Save user preference
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:[sender isOn] forKey:[NSString stringWithFormat:@"channel%ld", (long)toggleRow]];
+    [userDefaults synchronize];
 }
 
 
