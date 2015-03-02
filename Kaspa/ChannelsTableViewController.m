@@ -92,9 +92,6 @@
     CGPoint switchPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSInteger toggleRow = [self.tableView indexPathForRowAtPoint:switchPosition].row;
     
-    // Find the state of the switch
-    NSString *state = [sender isOn] == YES ? @"YES" : @"NO";
-    
     // Save user preference
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:[sender isOn] forKey:[NSString stringWithFormat:@"channel%ld", (long)toggleRow]];

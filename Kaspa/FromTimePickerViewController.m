@@ -9,6 +9,7 @@
 #import "FromTimePickerViewController.h"
 
 @interface FromTimePickerViewController ()
+@property (strong, nonatomic) BackendData* backendData;
 @property (weak, nonatomic) IBOutlet UILabel *fromTimeLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *fromTimePicker;
 @end
@@ -20,6 +21,9 @@
     // Do any additional setup after loading the view.
     [self updateFromTimeLabel:self.myFromTime];
     [self.fromTimePicker setDate:self.myFromTime];
+    
+    // Get backend data
+    self.backendData = [[BackendData alloc] init];
 }
 
 - (void)updateFromTimeLabel:(NSDate *)time {
@@ -40,6 +44,19 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:[timeFormat stringFromDate:sender.date] forKey:@"fromTime"];
     [userDefaults synchronize];
+    
+#warning Won't sync without network
+    // Save to cloud
+    NSString *url =[NSString stringWithFormat:
+                    @"%@/%@?id=%@&%@=%@",
+                    [self.backendData backendUrl],
+                    [self.backendData updateFromTimeScript],
+                    [self.backendData deviceId],
+                    [self.backendData updateFromTimeArgument],
+                    [timeFormat stringFromDate:sender.date]];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    [connection start];
 }
 
 /*
