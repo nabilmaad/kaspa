@@ -117,11 +117,18 @@
     [timeFormat setDateFormat:@"HH:mm"];
     [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
     
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"] == nil ||
-       [[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"] == (id)[NSNull null])
-        vc.myFromTime = [timeFormat dateFromString:@"22:00"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    // Set default time for first time users
+    if([userDefaults objectForKey:@"fromTime"] == nil ||
+       [userDefaults objectForKey:@"fromTime"] == (id)[NSNull null]) {
+        NSDate *defaultFromTime = [timeFormat dateFromString:@"22:00"];
+        vc.myFromTime = defaultFromTime;
+        [userDefaults setObject:defaultFromTime forKey:@"fromTime"];
+        [userDefaults synchronize];
+    }
     else
-        vc.myFromTime = [timeFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"]];
+        vc.myFromTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"];
 }
 
 - (void)prepareToTimePickerViewController:(ToTimePickerViewController *)vc {
@@ -129,11 +136,18 @@
     [timeFormat setDateFormat:@"HH:mm"];
     [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
     
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"] == nil ||
-       [[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"] == (id)[NSNull null])
-        vc.myToTime = [timeFormat dateFromString:@"07:00"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    // Set default time for first time users
+    if([userDefaults objectForKey:@"toTime"] == nil ||
+       [userDefaults objectForKey:@"toTime"] == (id)[NSNull null]) {
+        NSDate *defaultToTime = [timeFormat dateFromString:@"07:00"];
+        vc.myToTime = defaultToTime;
+        [userDefaults setObject:defaultToTime forKey:@"toTime"];
+        [userDefaults synchronize];
+    }
     else
-        vc.myToTime = [timeFormat dateFromString:[[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"]];
+        vc.myToTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"];
 }
 
 -(void)pushMyoConnectionView {

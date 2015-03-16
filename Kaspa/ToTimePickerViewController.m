@@ -9,7 +9,6 @@
 #import "ToTimePickerViewController.h"
 
 @interface ToTimePickerViewController ()
-@property (strong, nonatomic) BackendData* backendData;
 @property (weak, nonatomic) IBOutlet UILabel *toTimeLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *toTimePicker;
 @end
@@ -18,17 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Set time label
     [self updateToTimeLabel:self.myToTime];
+    // Set time picker
     [self.toTimePicker setDate:self.myToTime];
-    
-    // Get backend data
-    self.backendData = [[BackendData alloc] init];
-}
-
-- (void)setMyToTime:(NSDate *)myToTime {
-    _myToTime = myToTime;
-    [self updateToTimeLabel:myToTime];
 }
 
 - (void)updateToTimeLabel:(NSDate *)time {
@@ -47,21 +39,20 @@
     [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[timeFormat stringFromDate:sender.date] forKey:@"toTime"];
+    [userDefaults setObject:sender.date forKey:@"toTime"];
     [userDefaults synchronize];
     
-#warning Won't sync without network
     // Save to cloud
-    NSString *url =[NSString stringWithFormat:
-                    @"%@/%@?id=%@&%@=%@",
-                    [self.backendData backendUrl],
-                    [self.backendData updateToTimeScript],
-                    [self.backendData deviceId],
-                    [self.backendData updateToTimeArgument],
-                    [timeFormat stringFromDate:sender.date]];
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    [connection start];
+//    NSString *url =[NSString stringWithFormat:
+//                    @"%@/%@?id=%@&%@=%@",
+//                    [self.backendData backendUrl],
+//                    [self.backendData updateToTimeScript],
+//                    [self.backendData deviceId],
+//                    [self.backendData updateToTimeArgument],
+//                    [timeFormat stringFromDate:sender.date]];
+//    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+//    [connection start];
 }
 
 /*

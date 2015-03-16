@@ -10,18 +10,99 @@
 #import <MyoKit/MyoKit.h>
 
 @interface AppDelegate ()
-
+@property (nonatomic, strong) NSString *temperature;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     // Instantiate the hub using the singleton accessor, and set the applicationIdentifier of our application.
     [[TLMHub sharedHub] setApplicationIdentifier:@"com.Nabil.Kaspa"];
     return YES;
+}
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    NSLog(@"Background fetch started...");
+    // Check if it's time to download briefing (15 minutes)
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"HH:mm"];
+    [timeFormat setTimeZone:[NSTimeZone timeZoneWithName:@"America/Montreal"]];
+   
+    NSDate *now = [timeFormat dateFromString:[timeFormat stringFromDate:[NSDate date]]];
+    NSDate *wakeUpTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"];
+    int minutes = [wakeUpTime timeIntervalSinceDate:now]/60;
+    
+    if(minutes <= 15 && minutes > 0) {
+        //Download data
+#warning Implement data download
+        NSLog(@"It is time");
+    }
+    completionHandler(UIBackgroundFetchResultNewData);
+    NSLog(@"Background fetch completed...");
+    
+//    NSString *urlString = [NSString stringWithFormat:
+//                           @"http://api.openweathermap.org/data/2.5/weather?q=%@",
+//                           @"Ottawa"];
+//    
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    [[session dataTaskWithURL:[NSURL URLWithString:urlString]
+//            completionHandler:^(NSData *data,
+//                                NSURLResponse *response,
+//                                NSError *error) {
+//                NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+//                if (!error && httpResp.statusCode == 200) {
+//                    //---print out the result obtained---
+//                    NSString *result = [[NSString alloc] initWithBytes:[data bytes]
+//                                                                length:[data length]
+//                                                              encoding:NSUTF8StringEncoding];
+//         //           NSLog(@"%@", result);
+//                    
+//                    //---parse the JSON result---
+//                    [self parseJSONData:data];
+//                    
+//                    //---log temperature---
+//      //              NSLog(@"Calculated: %@", self.temperature);
+//                    
+//                    completionHandler(UIBackgroundFetchResultNewData);
+//                    NSLog(@"Background fetch completed...");
+//                } else {
+//                    NSLog(@"%@", error.description);
+//                    completionHandler(UIBackgroundFetchResultFailed);
+//                    NSLog(@"Background fetch Failed...");
+//                }
+//            }
+//      ] resume
+//     ];
+}
+
+- (void)parseJSONData:(NSData *)data {
+    NSError *error;
+    NSDictionary *parsedJSONData =
+    [NSJSONSerialization JSONObjectWithData:data
+                                    options:kNilOptions
+                                      error:&error];
+    NSDictionary *main = [parsedJSONData objectForKey:@"main"];
+    
+    //---temperature in Kelvin---
+    NSString *temp = [main valueForKey:@"temp"];
+    
+    //---convert temperature to Celcius---
+    float temperature = [temp floatValue] - 273;
+    
+    //---get current time---
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    
+    NSString *timeString = [formatter stringFromDate:date];
+    
+    self.temperature = [NSString stringWithFormat:
+                        @"%f degrees Celsius, fetched at %@",
+                        temperature, timeString];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

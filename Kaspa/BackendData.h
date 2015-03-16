@@ -11,9 +11,4 @@
 
 @interface BackendData : NSObject
 @property (nonatomic, weak) NSString *backendUrl;
-@property (nonatomic, weak) NSString *updateFromTimeScript;
-@property (nonatomic, weak) NSString *updateFromTimeArgument;
-@property (nonatomic, weak) NSString *updateToTimeScript;
-@property (nonatomic, weak) NSString *updateToTimeArgument;
-@property (nonatomic, strong) NSString *deviceId;
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import "BackendData.h"
 
 @interface KaspaViewController : UIViewController
 

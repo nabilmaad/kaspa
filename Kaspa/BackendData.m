@@ -18,17 +18,6 @@
     if( self = [super init] )
     {
         self.backendUrl = @"http://54.84.109.235";
-        
-        // Update From Time
-        self.updateFromTimeScript = @"updateFromTime.php";
-        self.updateFromTimeArgument = @"newFromTime";
-        
-        // Update To Time
-        self.updateToTimeScript = @"updateToTime.php";
-        self.updateToTimeArgument = @"newToTime";
-        
-        // Device ID
-        self.deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     }
     
     return self;
