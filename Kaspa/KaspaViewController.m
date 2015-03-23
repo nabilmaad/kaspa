@@ -20,36 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-//    self.briefing = [[NSMutableDictionary alloc] init];
-//    
-//    // Get today
-//    NSError *error;
-//    NSString *stringForToday = [[NSString alloc]
-//                                initWithContentsOfURL:[NSURL URLWithString:@"http://54.84.109.235/channels/today/16March2015"]
-//                                encoding:NSUTF8StringEncoding
-//                                error:&error];
-//    if (stringForToday == nil)
-//        NSLog(@"Error reading file at %@\n%@",
-//              [NSURL URLWithString:@"http://54.84.109.235/channels/today/16March2015"], [error localizedFailureReason]);
-//    [self.briefing setObject:stringForToday forKey:@"today"];
-//    
-//    // Get weather
-//    NSString *stringForWeather = [[NSString alloc]
-//                                initWithContentsOfURL:[NSURL URLWithString:@"http://54.84.109.235/channels/weather/OttawaONCanada"]
-//                                encoding:NSUTF8StringEncoding
-//                                error:&error];
-//    if (stringForWeather == nil)
-//        NSLog(@"Error reading file at %@\n%@",
-//              [NSURL URLWithString:@"http://54.84.109.235/channels/weather/OttawaONCanada"], [error localizedFailureReason]);
-//    [self.briefing setObject:stringForWeather forKey:@"weather"];
-//    
-//    // Print done
-//    NSLog(@"Done with");
-//    for (id key in self.briefing) {
-//        NSLog(@"key: %@, value: %@ \n", key, [self.briefing objectForKey:key]);
-//    }
     
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,18 +29,62 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)createBriefing {
+    self.briefing = [[NSMutableDictionary alloc] init];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    // Today
+    if([userDefaults boolForKey:@"Today state"]) {
+        [self.briefing setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Today data"] forKey:@"Today"];
+    }
+    
+    // Weather
+    if([userDefaults boolForKey:@"Weather state"])
+        [self.briefing setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Weather data"] forKey:@"Weather"];
+    
+    // Calendar Events
+    if([userDefaults boolForKey:@"Calendar Events state"])
+        [self.briefing setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Calendar Events data"] forKey:@"Calendar Events"];
+}
+
 - (IBAction)playButtonPressed:(id)sender {
+    // Set up briefing
+    [self createBriefing];
+    
     // Set up text to speech
     AVSpeechSynthesizer *speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     
-    for(id key in self.briefing) {
-        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:key]];
-        utterance.pitchMultiplier = 1.25f;
-        utterance.rate = 0.15f;
-        utterance.preUtteranceDelay = 0.1f;
-        utterance.postUtteranceDelay = 0.1f;
-        
-        [speechSynthesizer speakUtterance:utterance];
+    for(NSString *key in self.briefing) {
+        if([key isEqualToString:@"Calendar Events"]) {
+            NSLog(@"Speaking events?");
+            
+            NSArray *arrayOfEvents = [self.briefing objectForKey:key];
+            for(NSString *eventSentence in arrayOfEvents) {
+                AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:eventSentence];
+                utterance.pitchMultiplier = 1.25f;
+                utterance.rate = 0.15f;
+                utterance.preUtteranceDelay = 0.1f;
+                utterance.postUtteranceDelay = 0.1f;
+                
+                [speechSynthesizer speakUtterance:utterance];
+            }
+        }
+        else {
+            if([key isEqualToString:@"Today"]) {
+                [self.nextImage setImage:[UIImage imageNamed:@"Weather"]];
+            } else if([key isEqualToString:@"Weather"]) {
+                [self.currentImage setImage:[UIImage imageNamed:@"Weather"]];
+                [self.nextImage setImage:[UIImage imageNamed:@"Calendar"]];
+            }
+            NSLog(@"Speaking else?");
+            AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:key]];
+            utterance.pitchMultiplier = 1.25f;
+            utterance.rate = 0.15f;
+            utterance.preUtteranceDelay = 0.1f;
+            utterance.postUtteranceDelay = 0.1f;
+            
+            [speechSynthesizer speakUtterance:utterance];
+        }
     }
 }
 @end

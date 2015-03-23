@@ -11,8 +11,9 @@
 
 @interface AppDelegate ()
 @property (nonatomic, strong) BackendData *backend;
-@property bool *dataFetchSuccessful;
-@property (nonatomic, strong) NSString *temperature;
+@property bool dataFetchSuccessful;
+@property bool todayFailed;
+@property bool weatherFailed;
 @end
 
 @implementation AppDelegate
@@ -36,26 +37,40 @@
    
     NSDate *now = [timeFormat dateFromString:[timeFormat stringFromDate:[NSDate date]]];
     NSDate *wakeUpTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"];
-    int minutes = [wakeUpTime timeIntervalSinceDate:now]/60;
+    int minutesTillWakeUp = [wakeUpTime timeIntervalSinceDate:now]/60;
     
-#warning Make data fetch unsuccessful when sleeping time arrives
-    if(minutes <= 30 && minutes > 0 && !self.dataFetchSuccessful) {
-        //Download data set on by user
-        self.backend = [[BackendData alloc] init];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        
-        // Today
-        if([userDefaults boolForKey:@"Today state"])
-            [self getTodayData];
-        
-        // Weather
-        if([userDefaults boolForKey:@"Weather state"])
-            [self getWeatherData];
-        
-        // Calendar Events
-        if([userDefaults boolForKey:@"Calendar Events state"])
-            [self getCalendarEventsData];
+    NSDate *sleepTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"];
+    int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
+    
+    if(minutesTillWakeUp <= 30 && minutesTillWakeUp > 0) {
+        NSLog(@"It is time. See if data fetch was successful");
+        if(!self.dataFetchSuccessful) {
+            NSLog(@"Data fetch unsucessful, so gonna get data");
+            //Download data set on by user
+            self.backend = [[BackendData alloc] init];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            
+            // Today
+            if([userDefaults boolForKey:@"Today state"])
+                [self getTodayData];
+            
+            // Weather
+            if([userDefaults boolForKey:@"Weather state"])
+                [self getWeatherData];
+            
+            // Calendar Events
+            if([userDefaults boolForKey:@"Calendar Events state"])
+                [self getCalendarEventsData];
+            
+            if(!self.todayFailed && !self.weatherFailed)
+                self.dataFetchSuccessful = YES;
+        }
     }
+    else if(minutesSinceSleep > 0 && minutesTillWakeUp > 0 &&  self.dataFetchSuccessful) {
+        NSLog(@"It is not time anymore. Gonna disable dataFetchSuccessful");
+        self.dataFetchSuccessful = false;
+    }
+    NSLog(@"%d", (int)self.dataFetchSuccessful);
     completionHandler(UIBackgroundFetchResultNewData);
     NSLog(@"Background fetch completed...");
 }
@@ -86,7 +101,7 @@
                     [userDefaults setObject:result forKey:@"Today data"];
                     [userDefaults synchronize];
                 } else {
-                    self.dataFetchSuccessful = false;
+                    self.todayFailed = YES; // Too late
                 }
             }
       ] resume
@@ -118,7 +133,7 @@
                     [userDefaults setObject:result forKey:@"Weather data"];
                     [userDefaults synchronize];
                 } else {
-                    self.dataFetchSuccessful = false;
+                    self.weatherFailed = YES; // Too late
                 }
             }
       ] resume
@@ -191,29 +206,29 @@
 }
 
 - (void)parseJSONData:(NSData *)data {
-    NSError *error;
-    NSDictionary *parsedJSONData =
-    [NSJSONSerialization JSONObjectWithData:data
-                                    options:kNilOptions
-                                      error:&error];
-    NSDictionary *main = [parsedJSONData objectForKey:@"main"];
-    
-    //---temperature in Kelvin---
-    NSString *temp = [main valueForKey:@"temp"];
-    
-    //---convert temperature to Celcius---
-    float temperature = [temp floatValue] - 273;
-    
-    //---get current time---
-    NSDate *date = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    
-    NSString *timeString = [formatter stringFromDate:date];
-    
-    self.temperature = [NSString stringWithFormat:
-                        @"%f degrees Celsius, fetched at %@",
-                        temperature, timeString];
+//    NSError *error;
+//    NSDictionary *parsedJSONData =
+//    [NSJSONSerialization JSONObjectWithData:data
+//                                    options:kNilOptions
+//                                      error:&error];
+//    NSDictionary *main = [parsedJSONData objectForKey:@"main"];
+//    
+//    //---temperature in Kelvin---
+//    NSString *temp = [main valueForKey:@"temp"];
+//    
+//    //---convert temperature to Celcius---
+//    float temperature = [temp floatValue] - 273;
+//    
+//    //---get current time---
+//    NSDate *date = [NSDate date];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"HH:mm:ss"];
+//    
+//    NSString *timeString = [formatter stringFromDate:date];
+//    
+//    self.temperature = [NSString stringWithFormat:
+//                        @"%f degrees Celsius, fetched at %@",
+//                        temperature, timeString];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
