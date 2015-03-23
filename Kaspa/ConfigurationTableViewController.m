@@ -12,7 +12,6 @@
 #import <MyoKit/MyoKit.h>
 
 @interface ConfigurationTableViewController ()
-
 @end
 
 @implementation ConfigurationTableViewController
@@ -27,6 +26,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    if(buttonIndex == 1)
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: UIApplicationOpenSettingsURLString]];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -35,6 +40,26 @@
     NSIndexPath* selection = [self.tableView indexPathForSelectedRow];
     if (selection)
         [self.tableView deselectRowAtIndexPath:selection animated:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Calendar access
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if(!granted) {
+            if([[NSUserDefaults standardUserDefaults] boolForKey:@"Calendar Events state"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Calendar Access"
+                                                                message:@"Enable calendar access for Kaspa in Settings."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Not Now"
+                                                      otherButtonTitles:@"Settings", nil];
+                [alert show];
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -21,34 +21,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.briefing = [[NSMutableDictionary alloc] init];
+//    self.briefing = [[NSMutableDictionary alloc] init];
+//    
+//    // Get today
+//    NSError *error;
+//    NSString *stringForToday = [[NSString alloc]
+//                                initWithContentsOfURL:[NSURL URLWithString:@"http://54.84.109.235/channels/today/16March2015"]
+//                                encoding:NSUTF8StringEncoding
+//                                error:&error];
+//    if (stringForToday == nil)
+//        NSLog(@"Error reading file at %@\n%@",
+//              [NSURL URLWithString:@"http://54.84.109.235/channels/today/16March2015"], [error localizedFailureReason]);
+//    [self.briefing setObject:stringForToday forKey:@"today"];
+//    
+//    // Get weather
+//    NSString *stringForWeather = [[NSString alloc]
+//                                initWithContentsOfURL:[NSURL URLWithString:@"http://54.84.109.235/channels/weather/OttawaONCanada"]
+//                                encoding:NSUTF8StringEncoding
+//                                error:&error];
+//    if (stringForWeather == nil)
+//        NSLog(@"Error reading file at %@\n%@",
+//              [NSURL URLWithString:@"http://54.84.109.235/channels/weather/OttawaONCanada"], [error localizedFailureReason]);
+//    [self.briefing setObject:stringForWeather forKey:@"weather"];
+//    
+//    // Print done
+//    NSLog(@"Done with");
+//    for (id key in self.briefing) {
+//        NSLog(@"key: %@, value: %@ \n", key, [self.briefing objectForKey:key]);
+//    }
     
-    // Get today
-    NSError *error;
-    NSString *stringForToday = [[NSString alloc]
-                                initWithContentsOfURL:[NSURL URLWithString:@"http://54.84.109.235/channels/today/16March2015"]
-                                encoding:NSUTF8StringEncoding
-                                error:&error];
-    if (stringForToday == nil)
-        NSLog(@"Error reading file at %@\n%@",
-              [NSURL URLWithString:@"http://54.84.109.235/channels/today/16March2015"], [error localizedFailureReason]);
-    [self.briefing setObject:stringForToday forKey:@"today"];
-    
-    // Get weather
-    NSString *stringForWeather = [[NSString alloc]
-                                initWithContentsOfURL:[NSURL URLWithString:@"http://54.84.109.235/channels/weather/OttawaONCanada"]
-                                encoding:NSUTF8StringEncoding
-                                error:&error];
-    if (stringForWeather == nil)
-        NSLog(@"Error reading file at %@\n%@",
-              [NSURL URLWithString:@"http://54.84.109.235/channels/weather/OttawaONCanada"], [error localizedFailureReason]);
-    [self.briefing setObject:stringForWeather forKey:@"weather"];
-    
-    // Print done
-    NSLog(@"Done with");
-    for (id key in self.briefing) {
-        NSLog(@"key: %@, value: %@ \n", key, [self.briefing objectForKey:key]);
-    }
 }
 
 - (void)didReceiveMemoryWarning {

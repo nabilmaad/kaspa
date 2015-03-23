@@ -53,15 +53,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
-        // Add a switch with correct state
-        UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
-        [switchview setOn:[[NSUserDefaults standardUserDefaults] boolForKey:
-                           [NSString stringWithFormat:@"channel%ld", (long)indexPath.row]]];
-        cell.accessoryView = switchview;
-        [switchview addTarget:self
-                     action:@selector(switchIsToggled:)
-           forControlEvents:UIControlEventValueChanged];
     }
     
     // Add label
@@ -82,6 +73,15 @@
             break;
     }
     
+    // Add a switch with correct state
+    UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
+    [switchview setOn:[[NSUserDefaults standardUserDefaults] boolForKey:
+                       [NSString stringWithFormat:@"%@ state", cell.textLabel.text]]];
+    cell.accessoryView = switchview;
+    [switchview addTarget:self
+                   action:@selector(switchIsToggled:)
+         forControlEvents:UIControlEventValueChanged];
+    
     return cell;
 }
 
@@ -90,12 +90,19 @@
     
     // Find the row of the toggled switch
     CGPoint switchPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSInteger toggleRow = [self.tableView indexPathForRowAtPoint:switchPosition].row;
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:switchPosition];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     // Save user preference
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:[sender isOn] forKey:[NSString stringWithFormat:@"channel%ld", (long)toggleRow]];
+    [userDefaults setBool:[sender isOn] forKey:[NSString stringWithFormat:@"%@ state", cell.textLabel.text]];
     [userDefaults synchronize];
+    
+    // Request access to calendar events if switched on
+    if([cell.textLabel.text isEqualToString:@"Calendar Events"] && [sender isOn]) {
+        EKEventStore *eventStore = [[EKEventStore alloc] init];
+        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {}];
+    }
 }
 
 

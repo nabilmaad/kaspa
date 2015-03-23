@@ -17,7 +17,10 @@
 {
     if( self = [super init] )
     {
-        self.backendUrl = @"http://54.84.109.235";
+        self.backendUrl = @"http://54.84.109.235/";
+        self.channelsUrl = [NSString stringWithFormat:@"%@channels/", self.backendUrl];
+        self.todayChannelUrl = [NSString stringWithFormat:@"%@today/", self.channelsUrl];
+        self.weatherChannelUrl = [NSString stringWithFormat:@"%@weather/", self.channelsUrl];
     }
     
     return self;

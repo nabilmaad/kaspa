@@ -17,6 +17,10 @@
 		BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */; };
 		BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */; };
 		BDA05FCF1A7FE0EE008597CE /* GenericTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA05FCE1A7FE0EE008597CE /* GenericTests.m */; };
+		BDE704F51ABEEDDA0052245A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE704F41ABEEDDA0052245A /* CoreLocation.framework */; };
+		BDE704F81ABEF4010052245A /* LocationFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE704F71ABEF4010052245A /* LocationFetcher.m */; };
+		BDE704FD1ABF08B20052245A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE704FC1ABF08B20052245A /* UIKit.framework */; };
+		BDE704FF1ABFCF820052245A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE704FE1ABFCF820052245A /* EventKit.framework */; };
 		BDF020FC1A72F8AA00FE3606 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FB1A72F8AA00FE3606 /* main.m */; };
 		BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */; };
 		BDF021051A72F8AA00FE3606 /* KaspaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF021041A72F8AA00FE3606 /* KaspaViewController.m */; };
@@ -54,6 +58,11 @@
 		BD8993A31A75A40300CCC0B0 /* ConfigurationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTableViewController.h; sourceTree = "<group>"; };
 		BD8993A41A75A40300CCC0B0 /* ConfigurationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTableViewController.m; sourceTree = "<group>"; };
 		BDA05FCE1A7FE0EE008597CE /* GenericTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTests.m; sourceTree = "<group>"; };
+		BDE704F41ABEEDDA0052245A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BDE704F61ABEF4010052245A /* LocationFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationFetcher.h; sourceTree = "<group>"; };
+		BDE704F71ABEF4010052245A /* LocationFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationFetcher.m; sourceTree = "<group>"; };
+		BDE704FC1ABF08B20052245A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BDE704FE1ABFCF820052245A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		BDF020F61A72F8AA00FE3606 /* Kaspa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kaspa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF020FA1A72F8AA00FE3606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDF020FB1A72F8AA00FE3606 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -75,6 +84,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE704FF1ABFCF820052245A /* EventKit.framework in Frameworks */,
+				BDE704FD1ABF08B20052245A /* UIKit.framework in Frameworks */,
+				BDE704F51ABEEDDA0052245A /* CoreLocation.framework in Frameworks */,
 				BDF9E3551AB69D7900E42A05 /* AVFoundation.framework in Frameworks */,
 				BD6725501A7F6D2A00369958 /* MyoKit.framework in Frameworks */,
 				BD6725521A7F6D7000369958 /* CoreBluetooth.framework in Frameworks */,
@@ -97,6 +109,8 @@
 			children = (
 				BD6562411AA4688B0018970E /* BackendData.h */,
 				BD6562421AA4688B0018970E /* BackendData.m */,
+				BDE704F61ABEF4010052245A /* LocationFetcher.h */,
+				BDE704F71ABEF4010052245A /* LocationFetcher.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -122,6 +136,9 @@
 				BDF020F81A72F8AA00FE3606 /* Kaspa */,
 				BDF021151A72F8AB00FE3606 /* KaspaTests */,
 				BDF020F71A72F8AA00FE3606 /* Products */,
+				BDE704FE1ABFCF820052245A /* EventKit.framework */,
+				BDE704FC1ABF08B20052245A /* UIKit.framework */,
+				BDE704F41ABEEDDA0052245A /* CoreLocation.framework */,
 				BDF9E3541AB69D7900E42A05 /* AVFoundation.framework */,
 				BD6725511A7F6D7000369958 /* CoreBluetooth.framework */,
 				BD6725531A7F6D7A00369958 /* SystemConfiguration.framework */,
@@ -306,6 +323,7 @@
 				BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */,
 				BDF020FC1A72F8AA00FE3606 /* main.m in Sources */,
 				BD81E1B11A7CB9AC001B13A0 /* ToTimePickerViewController.m in Sources */,
+				BDE704F81ABEF4010052245A /* LocationFetcher.m in Sources */,
 				BD6562431AA4688B0018970E /* BackendData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

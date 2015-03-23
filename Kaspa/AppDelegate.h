@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EventKit/EventKit.h>
+#import "BackendData.h"
+#import "LocationFetcher.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

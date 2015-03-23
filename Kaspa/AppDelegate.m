@@ -10,6 +10,8 @@
 #import <MyoKit/MyoKit.h>
 
 @interface AppDelegate ()
+@property (nonatomic, strong) BackendData *backend;
+@property bool *dataFetchSuccessful;
 @property (nonatomic, strong) NSString *temperature;
 @end
 
@@ -36,47 +38,156 @@
     NSDate *wakeUpTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"toTime"];
     int minutes = [wakeUpTime timeIntervalSinceDate:now]/60;
     
-    if(minutes <= 15 && minutes > 0) {
-        //Download data
-#warning Implement data download
-        NSLog(@"It is time");
+#warning Make data fetch unsuccessful when sleeping time arrives
+    if(minutes <= 30 && minutes > 0 && !self.dataFetchSuccessful) {
+        //Download data set on by user
+        self.backend = [[BackendData alloc] init];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        // Today
+        if([userDefaults boolForKey:@"Today state"])
+            [self getTodayData];
+        
+        // Weather
+        if([userDefaults boolForKey:@"Weather state"])
+            [self getWeatherData];
+        
+        // Calendar Events
+        if([userDefaults boolForKey:@"Calendar Events state"])
+            [self getCalendarEventsData];
     }
     completionHandler(UIBackgroundFetchResultNewData);
     NSLog(@"Background fetch completed...");
+}
+
+- (void)getTodayData {
+    // Get today's date
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"ddMMMMyyyy";
+    NSString *todayDate = [formatter stringFromDate:[NSDate date]];
     
-//    NSString *urlString = [NSString stringWithFormat:
-//                           @"http://api.openweathermap.org/data/2.5/weather?q=%@",
-//                           @"Ottawa"];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    [[session dataTaskWithURL:[NSURL URLWithString:urlString]
-//            completionHandler:^(NSData *data,
-//                                NSURLResponse *response,
-//                                NSError *error) {
-//                NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
-//                if (!error && httpResp.statusCode == 200) {
-//                    //---print out the result obtained---
-//                    NSString *result = [[NSString alloc] initWithBytes:[data bytes]
-//                                                                length:[data length]
-//                                                              encoding:NSUTF8StringEncoding];
-//         //           NSLog(@"%@", result);
-//                    
-//                    //---parse the JSON result---
-//                    [self parseJSONData:data];
-//                    
-//                    //---log temperature---
-//      //              NSLog(@"Calculated: %@", self.temperature);
-//                    
-//                    completionHandler(UIBackgroundFetchResultNewData);
-//                    NSLog(@"Background fetch completed...");
-//                } else {
-//                    NSLog(@"%@", error.description);
-//                    completionHandler(UIBackgroundFetchResultFailed);
-//                    NSLog(@"Background fetch Failed...");
-//                }
-//            }
-//      ] resume
-//     ];
+    // Create today URL
+    NSString *todayUrl = [NSString stringWithFormat:@"%@%@", self.backend.todayChannelUrl, todayDate];
+    
+    // Fetch today data
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:[NSURL URLWithString:todayUrl]
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+                if (!error && httpResp.statusCode == 200) {
+                    //---print out the result obtained---
+                    NSString *result = [[NSString alloc] initWithBytes:[data bytes]
+                                                                length:[data length]
+                                                              encoding:NSUTF8StringEncoding];
+                    // Save today data
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:result forKey:@"Today data"];
+                    [userDefaults synchronize];
+                } else {
+                    self.dataFetchSuccessful = false;
+                }
+            }
+      ] resume
+     ];
+}
+
+- (void)getWeatherData {
+    // Get the user's city
+//    LocationFetcher *loc = [[LocationFetcher alloc] init];
+    NSString *location = @"OttawaONCanada";
+    
+    // Create today URL
+    NSString *weatherUrl = [NSString stringWithFormat:@"%@%@", self.backend.weatherChannelUrl, location];
+    
+//    // Fetch weather data
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:[NSURL URLWithString:weatherUrl]
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+                if (!error && httpResp.statusCode == 200) {
+                    //---print out the result obtained---
+                    NSString *result = [[NSString alloc] initWithBytes:[data bytes]
+                                                                length:[data length]
+                                                              encoding:NSUTF8StringEncoding];
+                    // Save weather data
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:result forKey:@"Weather data"];
+                    [userDefaults synchronize];
+                } else {
+                    self.dataFetchSuccessful = false;
+                }
+            }
+      ] resume
+     ];
+}
+
+- (void)getCalendarEventsData {
+    // Get event list for today
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        // Create the end date components
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *oneDayFromNowComponents = [[NSDateComponents alloc] init];
+        oneDayFromNowComponents.day = 1;
+        NSDate *oneDayFromNow = [calendar dateByAddingComponents:oneDayFromNowComponents
+                                                           toDate:[NSDate date]
+                                                          options:0];
+        
+        // Create the predicate from the event store's instance method
+        NSPredicate *predicate = [eventStore predicateForEventsWithStartDate:[NSDate date]
+                                                                     endDate:oneDayFromNow
+                                                                   calendars:nil];
+        
+        // Fetch all events that match the predicate
+        NSArray *events = [eventStore eventsMatchingPredicate:predicate];
+        
+        // Save events as strings
+        NSMutableArray *eventsText = [[NSMutableArray alloc] initWithObjects:@"Let's take a look at your calendar for today.", nil];
+        
+        switch([events count]) {
+            case 0:
+                // No events
+                [eventsText addObject:@"It looks like you have nothing planned for the day!"];
+            case 1: {
+                // 1 events
+                [eventsText addObject:@"You only have the following event planned."];
+                EKEvent *onlyEvent = (EKEvent *)[events objectAtIndex:0];
+                
+                // Set date formatter
+                NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]]; // Make sure it's 12-hour
+                [dateFormatter setDateFormat:@"hh:mm a"];
+                
+                NSString *eventTime = [dateFormatter stringFromDate:onlyEvent.startDate];
+                [eventsText addObject:[NSString stringWithFormat:
+                                       @"%@, at %@.", onlyEvent.title, eventTime]];
+            }
+            default:
+            {
+                // 2+ events
+                [eventsText addObject:@"Here are the events you have planned."];
+                for(EKEvent *event in events) {
+                    // Set date formatter
+                    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]]; // Make sure it's 12-hour
+                    [dateFormatter setDateFormat:@"hh:mm a"];
+                    
+                    NSString *eventTime = [dateFormatter stringFromDate:event.startDate];
+                    [eventsText addObject:[NSString stringWithFormat:
+                                              @"%@, at %@.", event.title, eventTime]];
+                }
+            }
+        }
+        
+        // Save calendar event data
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:eventsText forKey:@"Calendar Events data"];
+        [userDefaults synchronize];
+    }];
 }
 
 - (void)parseJSONData:(NSData *)data {

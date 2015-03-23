@@ -11,4 +11,7 @@
 
 @interface BackendData : NSObject
 @property (nonatomic, weak) NSString *backendUrl;
+@property (nonatomic, weak) NSString *channelsUrl;
+@property (nonatomic, weak) NSString *todayChannelUrl;
+@property (nonatomic, weak) NSString *weatherChannelUrl;
 @end
