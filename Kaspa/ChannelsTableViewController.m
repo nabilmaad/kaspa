@@ -9,7 +9,7 @@
 #import "ChannelsTableViewController.h"
 
 @interface ChannelsTableViewController ()
-
+@property (strong, nonatomic) WeatherHandler *weatherHandler;
 @end
 
 @implementation ChannelsTableViewController
@@ -103,8 +103,11 @@
         EKEventStore *eventStore = [[EKEventStore alloc] init];
         [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {}];
     }
+    
+    // Request an "always" access to location if weather switched on
+    if([cell.textLabel.text isEqualToString:@"Weather"] && [sender isOn])
+        self.weatherHandler = [[WeatherHandler alloc] init];
 }
-
 
 /*
 // Override to support conditional editing of the table view.

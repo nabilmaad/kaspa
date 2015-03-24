@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import <EventKit/EventKit.h>
+#import "WeatherHandler.h"
 
 @interface ChannelsTableViewController : UITableViewController
 

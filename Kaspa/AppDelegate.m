@@ -42,9 +42,12 @@
     NSDate *sleepTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"fromTime"];
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
-    if(minutesTillWakeUp <= 30 && minutesTillWakeUp > 0) {
+#warning Remove later on
+    bool testingFetch = NO;
+    
+    if(testingFetch || (minutesTillWakeUp <= 30 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
-        if(!self.dataFetchSuccessful) {
+        if(!self.dataFetchSuccessful || testingFetch) {
             NSLog(@"Data fetch unsucessful, so gonna get data");
             //Download data set on by user
             self.backend = [[BackendData alloc] init];
@@ -109,35 +112,9 @@
 }
 
 - (void)getWeatherData {
-    // Get the user's city
-//    LocationFetcher *loc = [[LocationFetcher alloc] init];
-    NSString *location = @"OttawaONCanada";
-    
-    // Create today URL
-    NSString *weatherUrl = [NSString stringWithFormat:@"%@%@", self.backend.weatherChannelUrl, location];
-    
-//    // Fetch weather data
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:weatherUrl]
-            completionHandler:^(NSData *data,
-                                NSURLResponse *response,
-                                NSError *error) {
-                NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
-                if (!error && httpResp.statusCode == 200) {
-                    //---print out the result obtained---
-                    NSString *result = [[NSString alloc] initWithBytes:[data bytes]
-                                                                length:[data length]
-                                                              encoding:NSUTF8StringEncoding];
-                    // Save weather data
-                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                    [userDefaults setObject:result forKey:@"Weather data"];
-                    [userDefaults synchronize];
-                } else {
-                    self.weatherFailed = YES; // Too late
-                }
-            }
-      ] resume
-     ];
+    // Get the weather data from the handler
+    WeatherHandler *loc = [[WeatherHandler alloc] init];
+    [loc getWeatherData];
 }
 
 - (void)getCalendarEventsData {
@@ -203,32 +180,6 @@
         [userDefaults setObject:eventsText forKey:@"Calendar Events data"];
         [userDefaults synchronize];
     }];
-}
-
-- (void)parseJSONData:(NSData *)data {
-//    NSError *error;
-//    NSDictionary *parsedJSONData =
-//    [NSJSONSerialization JSONObjectWithData:data
-//                                    options:kNilOptions
-//                                      error:&error];
-//    NSDictionary *main = [parsedJSONData objectForKey:@"main"];
-//    
-//    //---temperature in Kelvin---
-//    NSString *temp = [main valueForKey:@"temp"];
-//    
-//    //---convert temperature to Celcius---
-//    float temperature = [temp floatValue] - 273;
-//    
-//    //---get current time---
-//    NSDate *date = [NSDate date];
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"HH:mm:ss"];
-//    
-//    NSString *timeString = [formatter stringFromDate:date];
-//    
-//    self.temperature = [NSString stringWithFormat:
-//                        @"%f degrees Celsius, fetched at %@",
-//                        temperature, timeString];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
