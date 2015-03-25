@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <MyoKit/MyoKit.h>
 #import "BackendData.h"
 
-@interface KaspaViewController : UIViewController
+@interface KaspaViewController : UIViewController <AVSpeechSynthesizerDelegate>
 
 
 @end

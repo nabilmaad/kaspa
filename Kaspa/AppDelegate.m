@@ -115,6 +115,8 @@
     // Get the weather data from the handler
     WeatherHandler *loc = [[WeatherHandler alloc] init];
     [loc getWeatherData];
+    
+    
 }
 
 - (void)getCalendarEventsData {
