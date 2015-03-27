@@ -41,18 +41,6 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:sender.date forKey:@"toTime"];
     [userDefaults synchronize];
-    
-    // Save to cloud
-//    NSString *url =[NSString stringWithFormat:
-//                    @"%@/%@?id=%@&%@=%@",
-//                    [self.backendData backendUrl],
-//                    [self.backendData updateToTimeScript],
-//                    [self.backendData deviceId],
-//                    [self.backendData updateToTimeArgument],
-//                    [timeFormat stringFromDate:sender.date]];
-//    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-//    [connection start];
 }
 
 /*
