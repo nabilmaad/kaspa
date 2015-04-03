@@ -22,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    // Instantiate the hub using the singleton accessor, and set the applicationIdentifier of our application.
+    // Instantiate the Myo hub using the singleton accessor, and set the applicationIdentifier of our application.
     [[TLMHub sharedHub] setApplicationIdentifier:@"com.Nabil.Kaspa"];
     return YES;
 }
@@ -30,6 +30,12 @@
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     NSLog(@"Background fetch started...");
+    // Log background fetch on server
+    NSString *url = @"http://54.84.109.235/backgroundFetchScript.php";
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    [connection start];
+    
     // Check if it's time to download briefing (15 minutes)
     NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
     [timeFormat setDateFormat:@"HH:mm"];
@@ -43,7 +49,7 @@
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
 #warning Remove later on
-    bool testingFetch = YES;
+    bool testingFetch = NO;
     
     if(testingFetch || (minutesTillWakeUp <= 30 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
