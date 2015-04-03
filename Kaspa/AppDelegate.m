@@ -43,7 +43,7 @@
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
 #warning Remove later on
-    bool testingFetch = NO;
+    bool testingFetch = YES;
     
     if(testingFetch || (minutesTillWakeUp <= 30 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
@@ -138,7 +138,6 @@
         
         // Fetch all events that match the predicate
         NSArray *events = [eventStore eventsMatchingPredicate:predicate];
-        
         // Save events as strings
         NSMutableArray *eventsText = [[NSMutableArray alloc] initWithObjects:@"Let's take a look at your calendar for today.", nil];
         

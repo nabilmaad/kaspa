@@ -34,6 +34,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma Briefing creation
 -(void)createBriefing {
     self.briefing = [[NSMutableDictionary alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -52,6 +53,7 @@
         [self.briefing setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Calendar Events data"] forKey:@"Calendar Events"];
 }
 
+#pragma Play/Pause reaction
 - (IBAction)playButtonPressed:(id)sender {
     if(!self.speechSynthesizer) {
         // Set up briefing
@@ -62,27 +64,15 @@
         self.speechSynthesizer.delegate = self;
         
         for(NSString *key in self.briefing) {
-            if([key isEqualToString:@"Calendar Events"]) {
-                NSArray *arrayOfEvents = [self.briefing objectForKey:key];
-                for(NSString *eventSentence in arrayOfEvents) {
-                    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:eventSentence];
-                    utterance.pitchMultiplier = 1.25f;
-                    utterance.rate = 0.15f;
-                    utterance.preUtteranceDelay = 0.1f;
-                    utterance.postUtteranceDelay = 0.1f;
-                    // Speak
-                    [self.speechSynthesizer speakUtterance:utterance];
-                }
+            if([key isEqualToString:@"Today"]) {
+                [self speakToday];
+            } else if([key isEqualToString:@"Weather"]) {
+                [self speakWeather];
+            }else if([key isEqualToString:@"Calendar Events"]) {
+                [self speakCalendarEvents];
             }
             else {
-                AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:key]];
-                utterance.pitchMultiplier = 1.25f;
-                utterance.rate = 0.15f;
-                utterance.preUtteranceDelay = 0.1f;
-                utterance.postUtteranceDelay = 0.1f;
-                // Speak
-                [self.speechSynthesizer speakUtterance:utterance];
-            }
+                            }
         }
     } else if(self.speechSynthesizer.speaking && !self.speechSynthesizer.paused) {
         // Pause briefing
@@ -93,12 +83,64 @@
     }
 }
 
-- (IBAction)swipedRight:(id)sender {
-    NSLog(@"User swiped right");
+#pragma Speaking utterances
+- (void)speakToday {
+    // Today
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:@"Today"]];
+    [self setUpVoiceAndSpeak:utterance];
 }
 
+- (void)speakWeather {
+    // Weather
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:@"Weather"]];
+    [self setUpVoiceAndSpeak:utterance];
+}
+
+
+- (void)speakCalendarEvents {
+    // Calendar events
+    NSArray *arrayOfEvents = [self.briefing objectForKey:@"Calendar Events"];
+    for(NSString *eventSentence in arrayOfEvents) {
+        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:eventSentence];
+        [self setUpVoiceAndSpeak:utterance];
+    }
+}
+
+- (void)setUpVoiceAndSpeak:(AVSpeechUtterance *)utterance {
+    utterance.pitchMultiplier = 1.25f;
+    utterance.rate = 0.15f;
+    utterance.preUtteranceDelay = 0.1f;
+    utterance.postUtteranceDelay = 0.1f;
+    
+    // Speak
+    [self.speechSynthesizer speakUtterance:utterance];
+}
+
+#pragma Jumping to next topic
+- (IBAction)swipedRight:(id)sender {
+    if(self.speechSynthesizer.speaking)
+        [self skipToNextSubject];
+}
+
+- (void)skipToNextSubject {
+    // Stop speaking
+    [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+
+    // Find current subject
+    NSString *currentSubject = self.currentLabel.text;
+    
+    // Speak next subject(s)
+    if([currentSubject isEqualToString:@"Today"]) {
+        [self speakWeather];
+        [self speakCalendarEvents];
+    } else if([currentSubject isEqualToString:@"Weather"]) {
+        [self speakCalendarEvents];
+    }
+}
+
+#pragma Saving topic
 - (IBAction)swipedDown:(id)sender {
-    NSLog(@"User swiped right");
+    NSLog(@"User swiped down");
 }
 
 #pragma Myo
@@ -114,17 +156,23 @@
             NSLog(@"Double tap");
             break;
         case TLMPoseTypeFist:
-            NSLog(@"First");
+            NSLog(@"Fist");
             break;
         case TLMPoseTypeWaveIn:
             NSLog(@"Wave in");
+            if(self.speechSynthesizer.speaking && pose.myo.arm == TLMArmLeft) {
+                [self skipToNextSubject];
+            }
             break;
         case TLMPoseTypeWaveOut:
             NSLog(@"Wave out");
+            if(self.speechSynthesizer.speaking && pose.myo.arm == TLMArmRight)
+                [self skipToNextSubject];
             break;
         case TLMPoseTypeFingersSpread:
             NSLog(@"Fingers spread");
             break;
+            
     }
 }
 
