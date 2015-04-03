@@ -20,8 +20,7 @@
         self.backendUrl = @"http://54.84.109.235/";
         self.channelsUrl = [NSString stringWithFormat:@"%@channels/", self.backendUrl];
         self.todayChannelUrl = [NSString stringWithFormat:@"%@today/", self.channelsUrl];
-        self.weatherChannelUrl = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/forecast/daily?"];
-        self.weatherParameters = [NSString stringWithFormat:@"&cnt=1&units=metric"];
+        self.weatherChannelUrl = [NSString stringWithFormat:@"https://api.forecast.io/forecast/462d3f7b5db0918a83c79352db4b0b7f/"];
     }
     
     return self;

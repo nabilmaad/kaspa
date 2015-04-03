@@ -92,8 +92,12 @@
 
 - (void)speakWeather {
     // Weather
-    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:@"Weather"]];
-    [self setUpVoiceAndSpeak:utterance];
+    NSString *weatherData = [self.briefing objectForKey:@"Weather"];
+    NSArray *weatherSentences = [weatherData componentsSeparatedByString:@".."];
+    for(NSString *weatherSentence in weatherSentences) {
+        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:weatherSentence];
+        [self setUpVoiceAndSpeak:utterance];
+    }
 }
 
 
