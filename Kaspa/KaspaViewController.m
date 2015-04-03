@@ -164,17 +164,19 @@
             break;
         case TLMPoseTypeWaveIn:
             NSLog(@"Wave in");
-            if(self.speechSynthesizer.speaking && pose.myo.arm == TLMArmLeft) {
+            if(self.speechSynthesizer.speaking) {
                 [self skipToNextSubject];
             }
             break;
         case TLMPoseTypeWaveOut:
             NSLog(@"Wave out");
-            if(self.speechSynthesizer.speaking && pose.myo.arm == TLMArmRight)
+            if(self.speechSynthesizer.speaking)
                 [self skipToNextSubject];
             break;
         case TLMPoseTypeFingersSpread:
             NSLog(@"Fingers spread");
+            NSLog(@"%ld", pose.myo.arm);
+            [self playButtonPressed:nil];
             break;
             
     }
