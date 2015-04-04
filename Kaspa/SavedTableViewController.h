@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface SavedTableViewController : UITableViewController
+@interface SavedTableViewController : UITableViewController <AVSpeechSynthesizerDelegate>
 
 @end

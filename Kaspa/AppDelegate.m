@@ -51,7 +51,7 @@
 #warning Remove later on
     bool testingFetch = NO;
     
-    if(testingFetch || (minutesTillWakeUp <= 30 && minutesTillWakeUp > 0)) {
+    if(testingFetch || (minutesTillWakeUp <= 90 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
         if(!self.dataFetchSuccessful || testingFetch) {
             NSLog(@"Data fetch unsucessful, so gonna get data");

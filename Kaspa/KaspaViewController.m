@@ -68,11 +68,9 @@
                 [self speakToday];
             } else if([key isEqualToString:@"Weather"]) {
                 [self speakWeather];
-            }else if([key isEqualToString:@"Calendar Events"]) {
+            } else if([key isEqualToString:@"Calendar Events"]) {
                 [self speakCalendarEvents];
             }
-            else {
-                            }
         }
     } else if(self.speechSynthesizer.speaking && !self.speechSynthesizer.paused) {
         // Pause briefing
