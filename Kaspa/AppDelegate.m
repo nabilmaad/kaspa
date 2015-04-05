@@ -14,9 +14,7 @@
 #import <MyoKit/MyoKit.h>
 
 @interface AppDelegate ()
-@property bool dataFetchSuccessful;
-@property bool todayFailed;
-@property bool weatherFailed;
+@property bool dataFetchForTodaySuccessful;
 @property (nonatomic, strong) NSManagedObjectContext *savedTopicDatabaseContext;
 @end
 
@@ -71,15 +69,17 @@
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
 #warning Remove later on
-    bool testingFetch = YES;
+    bool testingFetch = NO;
     
     if(testingFetch || (minutesTillWakeUp <= 100 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
-        if(!self.dataFetchSuccessful || testingFetch) {
+        // Get app's internal data
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        self.dataFetchForTodaySuccessful = [userDefaults boolForKey:@"Today Fetch Successful"] &&
+                                    [userDefaults boolForKey:@"Weather Fetch Successful"];
+        
+        if(!self.dataFetchForTodaySuccessful || testingFetch) {
             NSLog(@"Data fetch unsucessful, so gonna get data");
-            //Download data set on by user
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            
             // Today
             if([userDefaults boolForKey:@"Today state"])
                 [self getTodayData];
@@ -92,16 +92,21 @@
             if([userDefaults boolForKey:@"Calendar Events state"])
                 [self getCalendarEventsData];
             
-            if(!self.todayFailed && !self.weatherFailed)
-                self.dataFetchSuccessful = YES;
-        }
+            completionHandler(UIBackgroundFetchResultNewData);
+        } else
+            completionHandler(UIBackgroundFetchResultNoData);
     }
-    else if(minutesSinceSleep > 0 && minutesTillWakeUp > 0 &&  self.dataFetchSuccessful) {
+    else if(self.dataFetchForTodaySuccessful && minutesSinceSleep > 0 && minutesTillWakeUp > 0) {
+        // Falsify all success flags to allow new fetch
         NSLog(@"It is not time anymore. Gonna disable dataFetchSuccessful");
-        self.dataFetchSuccessful = false;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setBool:NO forKey:@"Today Fetch Successful"];
+        [userDefaults setBool:NO forKey:@"Weather Fetch Successful"];
+        self.dataFetchForTodaySuccessful = NO;
+        completionHandler(UIBackgroundFetchResultNoData);
+    } else {
+        completionHandler(UIBackgroundFetchResultNoData);
     }
-    NSLog(@"%d", (int)self.dataFetchSuccessful);
-    completionHandler(UIBackgroundFetchResultNewData);
     NSLog(@"Background fetch completed...");
 }
 
@@ -122,16 +127,18 @@
                                 NSError *error) {
                 NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
                 if (!error && httpResp.statusCode == 200) {
-                    //---print out the result obtained---
                     NSString *result = [[NSString alloc] initWithBytes:[data bytes]
                                                                 length:[data length]
                                                               encoding:NSUTF8StringEncoding];
                     // Save today data
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:result forKey:@"Today data"];
+                    
+                    // Log success
+                    [userDefaults setBool:YES forKey:@"Today Fetch Successful"];
                     [userDefaults synchronize];
                 } else {
-                    self.todayFailed = YES; // Too late
+                    NSLog(@"Today error: %@", error.description);
                 }
             }
       ] resume
@@ -142,8 +149,6 @@
     // Get the weather data from the handler
     WeatherHandler *loc = [[WeatherHandler alloc] init];
     [loc getWeatherData];
-    
-    
 }
 
 - (void)getCalendarEventsData {

@@ -53,12 +53,11 @@
                     // Parse JSON and save weather data
                     [self parseJSONData:data];
                 } else {
-                    NSLog(@"%@", error.description);
+                    NSLog(@"Weather error: %@", error.description);
                 }
             }
       ] resume
      ];
-    
 }
 
 - (void)parseJSONData:(NSData *)data {
@@ -99,6 +98,9 @@
     // Save Weather data
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:weatherString forKey:@"Weather data"];
+    
+    // Log success
+    [userDefaults setBool:YES forKey:@"Weather Fetch Successful"];
     [userDefaults synchronize];
 }
 
