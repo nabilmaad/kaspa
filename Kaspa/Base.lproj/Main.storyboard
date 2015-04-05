@@ -349,7 +349,53 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgz-ph-LNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="537" y="488"/>
+            <point key="canvasLocation" x="549" y="1224"/>
+        </scene>
+        <!--Saved-->
+        <scene sceneID="lSt-S4-kOX">
+            <objects>
+                <tableViewController id="D9S-je-DTA" customClass="SavedCDTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="10" sectionFooterHeight="10" id="OaJ-PF-KKM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Saved Topic Cell" textLabel="hKn-25-X9z" detailTextLabel="27w-lE-iL4" imageView="ULb-LF-eRA" style="IBUITableViewCellStyleSubtitle" id="jcx-EQ-WA0">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jcx-EQ-WA0" id="5x2-SA-0LL">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hKn-25-X9z">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="27w-lE-iL4">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="second" id="ULb-LF-eRA">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D9S-je-DTA" id="zXx-HW-Lw2"/>
+                            <outlet property="delegate" destination="D9S-je-DTA" id="7e5-GG-uen"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Saved" id="r5W-9q-3dQ">
+                        <barButtonItem key="rightBarButtonItem" title="Play All" id="pe7-t6-mqj"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iwl-fs-7pX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="691" y="488"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Hjf-e0-iYn">
@@ -402,7 +448,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="kJc-2e-BFq" kind="relationship" relationship="rootViewController" id="LSf-iD-fnG"/>
+                        <segue destination="D9S-je-DTA" kind="relationship" relationship="rootViewController" id="1D2-Il-ChR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NPB-Bi-cw0" userLabel="First Responder" sceneMemberID="firstResponder"/>

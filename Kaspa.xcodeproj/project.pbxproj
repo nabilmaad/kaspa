@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD6562431AA4688B0018970E /* BackendData.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6562421AA4688B0018970E /* BackendData.m */; };
+		BD5EB2751AD0DE860019DB8C /* SavedTopics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2731AD0DE860019DB8C /* SavedTopics.xcdatamodeld */; };
+		BD5EB2781AD0E1510019DB8C /* SavedTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2771AD0E1510019DB8C /* SavedTopic.m */; };
+		BD5EB27B1AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB27A1AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.m */; };
+		BD5EB27F1AD0EA100019DB8C /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB27E1AD0EA100019DB8C /* CoreDataTableViewController.m */; };
+		BD5EB2821AD0ECF90019DB8C /* SavedCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2811AD0ECF90019DB8C /* SavedCDTVC.m */; };
+		BD5EB2881AD13BD70019DB8C /* AppDelegate+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2871AD13BD70019DB8C /* AppDelegate+MOC.m */; };
+		BD5EB28C1AD14DD80019DB8C /* KaspaViewController+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB28B1AD14DD80019DB8C /* KaspaViewController+MOC.m */; };
 		BD6725501A7F6D2A00369958 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD67254F1A7F6D2A00369958 /* MyoKit.framework */; };
 		BD6725521A7F6D7000369958 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6725511A7F6D7000369958 /* CoreBluetooth.framework */; };
 		BD6725541A7F6D7A00369958 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6725531A7F6D7A00369958 /* SystemConfiguration.framework */; };
@@ -42,8 +48,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BD6562411AA4688B0018970E /* BackendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendData.h; sourceTree = "<group>"; };
-		BD6562421AA4688B0018970E /* BackendData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendData.m; sourceTree = "<group>"; };
+		BD5EB2741AD0DE860019DB8C /* SavedTopics.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedTopics.xcdatamodel; sourceTree = "<group>"; };
+		BD5EB2761AD0E1510019DB8C /* SavedTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedTopic.h; sourceTree = "<group>"; };
+		BD5EB2771AD0E1510019DB8C /* SavedTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedTopic.m; sourceTree = "<group>"; };
+		BD5EB2791AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SavedTopic+SavedTopicCategory.h"; sourceTree = "<group>"; };
+		BD5EB27A1AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SavedTopic+SavedTopicCategory.m"; sourceTree = "<group>"; };
+		BD5EB27D1AD0EA100019DB8C /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		BD5EB27E1AD0EA100019DB8C /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		BD5EB2801AD0ECF90019DB8C /* SavedCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedCDTVC.h; sourceTree = "<group>"; };
+		BD5EB2811AD0ECF90019DB8C /* SavedCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedCDTVC.m; sourceTree = "<group>"; };
+		BD5EB2861AD13BD70019DB8C /* AppDelegate+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+MOC.h"; sourceTree = "<group>"; };
+		BD5EB2871AD13BD70019DB8C /* AppDelegate+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+MOC.m"; sourceTree = "<group>"; };
+		BD5EB2891AD13DE90019DB8C /* SavedTopicsDatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedTopicsDatabaseAvailability.h; sourceTree = "<group>"; };
+		BD5EB28A1AD14DD80019DB8C /* KaspaViewController+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KaspaViewController+MOC.h"; sourceTree = "<group>"; };
+		BD5EB28B1AD14DD80019DB8C /* KaspaViewController+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KaspaViewController+MOC.m"; sourceTree = "<group>"; };
+		BD5EB2901AD15FDE0019DB8C /* Backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Backend.h; sourceTree = "<group>"; };
 		BD67254F1A7F6D2A00369958 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyoKit.framework; sourceTree = "<group>"; };
 		BD6725511A7F6D7000369958 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		BD6725531A7F6D7A00369958 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -104,11 +123,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD5EB27C1AD0EA100019DB8C /* CoreDataTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BD5EB27D1AD0EA100019DB8C /* CoreDataTableViewController.h */,
+				BD5EB27E1AD0EA100019DB8C /* CoreDataTableViewController.m */,
+			);
+			path = CoreDataTableViewController;
+			sourceTree = "<group>";
+		};
+		BD5EB28D1AD158C50019DB8C /* Kaspa Tab */ = {
+			isa = PBXGroup;
+			children = (
+				BDF021031A72F8AA00FE3606 /* KaspaViewController.h */,
+				BDF021041A72F8AA00FE3606 /* KaspaViewController.m */,
+				BD5EB28A1AD14DD80019DB8C /* KaspaViewController+MOC.h */,
+				BD5EB28B1AD14DD80019DB8C /* KaspaViewController+MOC.m */,
+			);
+			name = "Kaspa Tab";
+			sourceTree = "<group>";
+		};
+		BD5EB28E1AD158D60019DB8C /* Saved List Tab */ = {
+			isa = PBXGroup;
+			children = (
+				BD5EB27C1AD0EA100019DB8C /* CoreDataTableViewController */,
+				BD5EB2801AD0ECF90019DB8C /* SavedCDTVC.h */,
+				BD5EB2811AD0ECF90019DB8C /* SavedCDTVC.m */,
+				BD81E1A81A7C3C01001B13A0 /* SavedTableViewController.h */,
+				BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */,
+			);
+			name = "Saved List Tab";
+			sourceTree = "<group>";
+		};
+		BD5EB28F1AD158F50019DB8C /* Saved Topics Database */ = {
+			isa = PBXGroup;
+			children = (
+				BD5EB2731AD0DE860019DB8C /* SavedTopics.xcdatamodeld */,
+				BD5EB2791AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.h */,
+				BD5EB27A1AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.m */,
+				BD5EB2761AD0E1510019DB8C /* SavedTopic.h */,
+				BD5EB2771AD0E1510019DB8C /* SavedTopic.m */,
+			);
+			name = "Saved Topics Database";
+			sourceTree = "<group>";
+		};
 		BD6562441AA468940018970E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BD6562411AA4688B0018970E /* BackendData.h */,
-				BD6562421AA4688B0018970E /* BackendData.m */,
+				BD5EB28F1AD158F50019DB8C /* Saved Topics Database */,
+				BD5EB2901AD15FDE0019DB8C /* Backend.h */,
 				BDE704F61ABEF4010052245A /* WeatherHandler.h */,
 				BDE704F71ABEF4010052245A /* WeatherHandler.m */,
 			);
@@ -173,6 +236,9 @@
 			children = (
 				BDF020FD1A72F8AA00FE3606 /* AppDelegate.h */,
 				BDF020FE1A72F8AA00FE3606 /* AppDelegate.m */,
+				BD5EB2861AD13BD70019DB8C /* AppDelegate+MOC.h */,
+				BD5EB2871AD13BD70019DB8C /* AppDelegate+MOC.m */,
+				BD5EB2891AD13DE90019DB8C /* SavedTopicsDatabaseAvailability.h */,
 				BDF020FA1A72F8AA00FE3606 /* Info.plist */,
 				BDF020FB1A72F8AA00FE3606 /* main.m */,
 			);
@@ -201,10 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				BD81E1AE1A7CB7C7001B13A0 /* Configuration */,
-				BD81E1A81A7C3C01001B13A0 /* SavedTableViewController.h */,
-				BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */,
-				BDF021031A72F8AA00FE3606 /* KaspaViewController.h */,
-				BDF021041A72F8AA00FE3606 /* KaspaViewController.m */,
+				BD5EB28D1AD158C50019DB8C /* Kaspa Tab */,
+				BD5EB28E1AD158D60019DB8C /* Saved List Tab */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -316,15 +380,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD8993A51A75A40300CCC0B0 /* ConfigurationTableViewController.m in Sources */,
+				BD5EB2781AD0E1510019DB8C /* SavedTopic.m in Sources */,
+				BD5EB2821AD0ECF90019DB8C /* SavedCDTVC.m in Sources */,
+				BD5EB27F1AD0EA100019DB8C /* CoreDataTableViewController.m in Sources */,
 				BDF021051A72F8AA00FE3606 /* KaspaViewController.m in Sources */,
+				BD5EB28C1AD14DD80019DB8C /* KaspaViewController+MOC.m in Sources */,
 				BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */,
+				BD5EB2751AD0DE860019DB8C /* SavedTopics.xcdatamodeld in Sources */,
+				BD5EB2881AD13BD70019DB8C /* AppDelegate+MOC.m in Sources */,
 				BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */,
 				BD81E1AD1A7CB0BA001B13A0 /* FromTimePickerViewController.m in Sources */,
 				BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */,
 				BDF020FC1A72F8AA00FE3606 /* main.m in Sources */,
 				BD81E1B11A7CB9AC001B13A0 /* ToTimePickerViewController.m in Sources */,
 				BDE704F81ABEF4010052245A /* WeatherHandler.m in Sources */,
-				BD6562431AA4688B0018970E /* BackendData.m in Sources */,
+				BD5EB27B1AD0E36D0019DB8C /* SavedTopic+SavedTopicCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +608,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BD5EB2731AD0DE860019DB8C /* SavedTopics.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BD5EB2741AD0DE860019DB8C /* SavedTopics.xcdatamodel */,
+			);
+			currentVersion = BD5EB2741AD0DE860019DB8C /* SavedTopics.xcdatamodel */;
+			path = SavedTopics.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BDF020EE1A72F8AA00FE3606 /* Project object */;
 }

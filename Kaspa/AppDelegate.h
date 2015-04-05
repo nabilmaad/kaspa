@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
-#import "BackendData.h"
 #import "WeatherHandler.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

@@ -7,10 +7,10 @@
 //
 
 #import "WeatherHandler.h"
+#import "Backend.h"
 
 @interface WeatherHandler()
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) BackendData *backend;
 @end
 
 @implementation WeatherHandler
@@ -40,9 +40,8 @@
     float longitude = currentLocation.coordinate.longitude;
 
     // Call Forecast IO API
-    self.backend = [[BackendData alloc] init];
     NSString *urlString = [NSString stringWithFormat:
-                           @"%@%f,%f,%d", self.backend.weatherChannelUrl, latitude, longitude, (int)[[NSDate date] timeIntervalSince1970]];
+                           @"%@%f,%f,%d", WeatherChannelUrl, latitude, longitude, (int)[[NSDate date] timeIntervalSince1970]];
 
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithURL:[NSURL URLWithString:urlString]

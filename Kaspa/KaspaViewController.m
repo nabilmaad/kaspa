@@ -7,6 +7,9 @@
 //
 
 #import "KaspaViewController.h"
+#import "KaspaViewController+MOC.h"
+#import "SavedTopic+SavedTopicCategory.h"
+#import "SavedTopicsDatabaseAvailability.h"
 
 @interface KaspaViewController ()
 @property (strong, nonatomic) NSMutableDictionary *briefing;
@@ -15,12 +18,25 @@
 @property (weak, nonatomic) IBOutlet UIImageView *nextImage;
 @property (weak, nonatomic) IBOutlet UILabel *currentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nextLabel;
+@property (nonatomic, strong) NSManagedObjectContext *savedTopicDatabaseContext;
 @end
 
 @implementation KaspaViewController
 
+// Post notification when context is set
+- (void)setSavedTopicDatabaseContext:(NSManagedObjectContext *)savedTopicDatabaseContext {
+    _savedTopicDatabaseContext = savedTopicDatabaseContext;
+    
+    NSDictionary *userInfo = self.savedTopicDatabaseContext ? @{ SavedTopicsDatabaseAvailabilityContext : self.savedTopicDatabaseContext } : nil;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SavedTopicsDatabaseAvailabilityNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
     
     // Posted when a new pose is available from a TLMMyo.
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -34,7 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma Briefing creation
+#pragma mark Briefing creation
 -(void)createBriefing {
     self.briefing = [[NSMutableDictionary alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -53,7 +69,7 @@
         [self.briefing setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Calendar Events data"] forKey:@"Calendar Events"];
 }
 
-#pragma Play/Pause reaction
+#pragma mark Play/Pause reaction
 - (IBAction)playButtonPressed:(id)sender {
     if(!self.speechSynthesizer) {
         // Set up briefing
@@ -81,7 +97,7 @@
     }
 }
 
-#pragma Speaking utterances
+#pragma mark - Speaking utterances
 - (void)speakToday {
     // Today
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[self.briefing objectForKey:@"Today"]];
@@ -118,7 +134,7 @@
     [self.speechSynthesizer speakUtterance:utterance];
 }
 
-#pragma Jumping to next topic
+#pragma mark - Jumping to next topic
 - (IBAction)swipedRight:(id)sender {
     if(self.speechSynthesizer.speaking)
         [self skipToNextSubject];
@@ -140,12 +156,30 @@
     }
 }
 
-#pragma Saving topic
+#pragma mark - Saving topic
 - (IBAction)swipedDown:(id)sender {
-    NSLog(@"User swiped down");
+    if(self.speechSynthesizer.speaking) {
+        [self saveCurrentTopic];
+        [self skipToNextSubject];
+    }
 }
 
-#pragma Myo
+- (void)saveCurrentTopic {
+    // Find current topic channel
+    NSString *currentTopicChannel = self.currentLabel.text;
+    
+    // Save currently spoken topic to saved list tab
+    NSManagedObjectContext *context = self.savedTopicDatabaseContext;
+    [context performBlock:^{
+        [SavedTopic addToSavedList:currentTopicChannel
+                          withData:[self.briefing objectForKey:currentTopicChannel]
+                           andDate:[NSDate date]
+            inManagedObjectContext:self.savedTopicDatabaseContext];
+        [context save:NULL];
+    }];
+}
+
+#pragma mark - Myo
 - (void)didReceivePoseChange:(NSNotification *)notification {
     // Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
     TLMPose *pose = notification.userInfo[kTLMKeyPose];
@@ -159,6 +193,10 @@
             break;
         case TLMPoseTypeFist:
             NSLog(@"Fist");
+            if(self.speechSynthesizer.speaking) {
+                [self saveCurrentTopic];
+                [self skipToNextSubject];
+            }
             break;
         case TLMPoseTypeWaveIn:
             NSLog(@"Wave in");
@@ -180,7 +218,7 @@
     }
 }
 
-#pragma SpeechUtterance delegate
+#pragma mark - SpeechUtterance delegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didStartSpeechUtterance:(AVSpeechUtterance *)utterance {
     if([utterance.speechString hasPrefix:@"Today is"]) {
         // Today image and label

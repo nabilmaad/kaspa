@@ -1,19 +1,43 @@
 //
-//  SavedTableViewController.m
+//  SavedCDTVC.m
 //  Kaspa
 //
-//  Created by Nabil Maadarani on 2015-01-30.
+//  Created by Nabil Maadarani on 2015-04-05.
 //  Copyright (c) 2015 Nabil Maadarani. All rights reserved.
 //
 
-#import "SavedTableViewController.h"
+#import "SavedCDTVC.h"
+#import "SavedTopic.h"
+#import "SavedTopic+SavedTopicCategory.h"
+#import "SavedTopicsDatabaseAvailability.h"
 
-@interface SavedTableViewController ()
-@property (strong, nonatomic) NSMutableArray *savedTopics;
+@interface SavedCDTVC ()
 @property (strong, nonatomic) AVSpeechSynthesizer *speechSynthesizer;
 @end
 
-@implementation SavedTableViewController
+@implementation SavedCDTVC
+
+- (void)awakeFromNib {
+    [[NSNotificationCenter defaultCenter] addObserverForName:SavedTopicsDatabaseAvailabilityNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.managedObjectContext = note.userInfo[SavedTopicsDatabaseAvailabilityContext];
+                                                  }];
+}
+
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    _managedObjectContext = managedObjectContext;
+    
+    NSFetchRequest *request =  [NSFetchRequest fetchRequestWithEntityName:@"SavedTopic"];
+    request.predicate = nil;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
 
 - (AVSpeechSynthesizer *)speechSynthesizer {
     if(!_speechSynthesizer) {
@@ -26,27 +50,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.savedTopics = [[NSMutableArray alloc] init];
-    // Create saved array
-    [self.savedTopics addObject:
-     @{@"channel":@"Today",
-       @"date":@"April 4 2015",
-       @"data":@"Today is April 4th."
-       }
-     ];
-    [self.savedTopics addObject:
-     @{@"channel":@"Weather",
-       @"date":@"April 4 2015",
-       @"data":@"Let's check today's weather."
-       }
-     ];
-    [self.savedTopics addObject:
-     @{@"channel":@"Calendar Events",
-       @"date":@"April 4 2015",
-       @"data":@[@"Let's take a look at your calendar for today.",
-                 @"Here are the events you have planned for today"]
-       }
-     ];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -66,18 +69,14 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return [self.savedTopics count];
-}
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Saved Track Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Saved Topic Cell" forIndexPath:indexPath];
+    
+    // Fetch the saved topic at this cell
+    SavedTopic *savedTopic = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Configure the cell
-    NSDictionary *cellContent = [self.savedTopics objectAtIndex:indexPath.row];
-    NSString *cellChannel = [cellContent objectForKey:@"channel"];
+    NSString *cellChannel = savedTopic.channel;
     
     // Cell title & icon
     UIImage *cellImage = [[UIImage alloc] init];
@@ -100,7 +99,9 @@
                                          orientation:cellImage.imageOrientation];
     
     // Cell detail (date)
-    cell.detailTextLabel.text = [cellContent objectForKey:@"date"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MMMM dd yyyy";
+    cell.detailTextLabel.text = [formatter stringFromDate:[NSDate date]];
     
     // Label for duration
     UILabel *durationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 220.0, 15.0)];
@@ -112,7 +113,7 @@
     
     [cell.contentView addSubview:durationLabel];
     
-    // Position label on the right
+    // Right label
     NSDictionary *labelDictionary = @{@"labelView":durationLabel};
     NSArray *constraint_POS_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[labelView]-|"
                                                                         options:0
@@ -124,6 +125,9 @@
                                                                           views:labelDictionary];
     [cell.contentView addConstraints:constraint_POS_V];
     [cell.contentView addConstraints:constraint_POS_H];
+    
+//    cell.textLabel.text = savedTopic.channel;
+//    cell.detailTextLabel.text = @"April 5 2015";
     
     return cell;
 }
@@ -137,16 +141,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Get cell channel
-    NSDictionary *cellContent = [self.savedTopics objectAtIndex:indexPath.row];
-    NSString *cellChannel = [cellContent objectForKey:@"channel"];
+    SavedTopic *savedTopic = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *cellChannel = savedTopic.channel;
     
     // Find the topic of speach
     if([cellChannel isEqualToString:@"Today"]) {
-        [self speakToday:[cellContent objectForKey:@"data"]];
+        [self speakToday:savedTopic.data];
     } else if([cellChannel isEqualToString:@"Weather"]) {
-        [self speakWeather:[cellContent objectForKey:@"data"]];
+        [self speakWeather:savedTopic.data];
     } else if([cellChannel isEqualToString:@"Calendar Events"]) {
-        [self speakCalendarEvents:[cellContent objectForKey:@"data"]];
+        [self speakCalendarEvents:savedTopic.data];
     }
 }
 
@@ -185,54 +189,49 @@
     [self.speechSynthesizer speakUtterance:utterance];
 }
 
-#pragma mark - Play all tracks
-- (IBAction)PlayAllButtonPressed:(id)sender {
-    NSLog(@"Playing All");
-}
-
 #pragma mark - Extra stuff
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-##pragma mark - mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ ##pragma mark - mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

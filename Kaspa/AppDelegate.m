@@ -7,27 +7,49 @@
 //
 
 #import "AppDelegate.h"
+#import "AppDelegate+MOC.h"
+#import "SavedTopic+SavedTopicCategory.h"
+#import "SavedTopicsDatabaseAvailability.h"
+#import "Backend.h"
 #import <MyoKit/MyoKit.h>
 
 @interface AppDelegate ()
-@property (nonatomic, strong) BackendData *backend;
 @property bool dataFetchSuccessful;
 @property bool todayFailed;
 @property bool weatherFailed;
+@property (nonatomic, strong) NSManagedObjectContext *savedTopicDatabaseContext;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Set minimum fetching interval
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     // Instantiate the Myo hub using the singleton accessor, and set the applicationIdentifier of our application.
     [[TLMHub sharedHub] setApplicationIdentifier:@"com.Nabil.Kaspa"];
+    
+    // Set the managed object context to trigger a notification to show the saved list
+    self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
+    
     return YES;
 }
 
--(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+#pragma mark - Radio antenna setup
+- (void)setSavedTopicDatabaseContext:(NSManagedObjectContext *)savedTopicDatabaseContext {
+    _savedTopicDatabaseContext = savedTopicDatabaseContext;
+    
+    NSDictionary *userInfo = self.savedTopicDatabaseContext ? @{ SavedTopicsDatabaseAvailabilityContext : self.savedTopicDatabaseContext } : nil;
+    
+    // Post notification that will be received by the saved list table view
+    [[NSNotificationCenter defaultCenter] postNotificationName:SavedTopicsDatabaseAvailabilityNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+}
+
+#pragma mark - Background Fetching
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     NSLog(@"Background fetch started...");
     // Log background fetch on server
@@ -49,14 +71,13 @@
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
 #warning Remove later on
-    bool testingFetch = NO;
+    bool testingFetch = YES;
     
-    if(testingFetch || (minutesTillWakeUp <= 90 && minutesTillWakeUp > 0)) {
+    if(testingFetch || (minutesTillWakeUp <= 100 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
         if(!self.dataFetchSuccessful || testingFetch) {
             NSLog(@"Data fetch unsucessful, so gonna get data");
             //Download data set on by user
-            self.backend = [[BackendData alloc] init];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             
             // Today
@@ -91,7 +112,7 @@
     NSString *todayDate = [formatter stringFromDate:[NSDate date]];
     
     // Create today URL
-    NSString *todayUrl = [NSString stringWithFormat:@"%@%@", self.backend.todayChannelUrl, todayDate];
+    NSString *todayUrl = [NSString stringWithFormat:@"%@%@", TodayChannelUrl, todayDate];
     
     // Fetch today data
     NSURLSession *session = [NSURLSession sharedSession];

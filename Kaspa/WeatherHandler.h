@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "BackendData.h"
 
 @interface WeatherHandler : NSObject <CLLocationManagerDelegate>
 -(void) getWeatherData;
