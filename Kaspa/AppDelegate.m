@@ -22,6 +22,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Set middle tab as default
+    UITabBarController *tabBar = (UITabBarController *)self.window.rootViewController;
+    tabBar.selectedIndex = 1;
+    
     // Set minimum fetching interval
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -30,6 +34,23 @@
     
     // Set the managed object context to trigger a notification to show the saved list
     self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
+    
+    // Ask user to allow notifications if it's the first launch
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+        // app already launched
+    } else {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        // This is the first launch ever - register notifications
+        UIUserNotificationType types = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        
+        UIUserNotificationSettings *mySettings =
+        [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    }
     
     return YES;
 }
@@ -102,11 +123,21 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:NO forKey:@"Today Fetch Successful"];
         [userDefaults setBool:NO forKey:@"Weather Fetch Successful"];
+        [userDefaults setBool:NO forKey:@"HasSentNotification"];
         self.dataFetchForTodaySuccessful = NO;
         completionHandler(UIBackgroundFetchResultNoData);
     } else {
         completionHandler(UIBackgroundFetchResultNoData);
     }
+    
+    // Check if data has been successfully fetched, and we still didn't fire the notification
+    if(self.dataFetchForTodaySuccessful &&
+       ![[NSUserDefaults standardUserDefaults] boolForKey:@"HasSentNotification"]) {
+        [self fireBriefingReadyNotification];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasSentNotification"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     NSLog(@"Background fetch completed...");
 }
 
@@ -213,6 +244,29 @@
         [userDefaults setObject:eventsText forKey:@"Calendar Events data"];
         [userDefaults synchronize];
     }];
+}
+
+# pragma mark - Local notification
+- (void)fireBriefingReadyNotification {
+    // Create notification
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif == nil)
+        return;
+    
+    // Fire notification ASAP (1 second from now)
+//    localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+//    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+    
+    // Set notification text
+    localNotif.alertBody = @"You can listen to your daily briefing."; // Message
+    localNotif.alertAction = @"Listen"; // Action button title
+    localNotif.alertTitle = @"Briefing Ready"; // Apple Watch short look text
+    
+    // Add badge & notification sound
+    localNotif.applicationIconBadgeNumber = 1;
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -72,6 +72,10 @@
 #pragma mark Play/Pause reaction
 - (IBAction)playButtonPressed:(id)sender {
     if(!self.speechSynthesizer) {
+        // Clear notification if it's there
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        
         // Set up briefing
         [self createBriefing];
         
