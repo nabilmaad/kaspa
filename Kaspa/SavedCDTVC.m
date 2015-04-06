@@ -15,6 +15,7 @@
 @interface SavedCDTVC ()
 @property (strong, nonatomic) AVSpeechSynthesizer *speechSynthesizer;
 @property (nonatomic, strong) NSManagedObjectContext *savedTopicDatabaseContext;
+@property int rowOfCellBeingSpoken;
 @end
 
 @implementation SavedCDTVC
@@ -65,6 +66,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Create the speech synthesizer to save time
+    self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    self.speechSynthesizer.delegate = self;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -119,31 +124,10 @@
     formatter.dateFormat = @"MMMM dd yyyy";
     cell.detailTextLabel.text = [formatter stringFromDate:[NSDate date]];
     
-    // Label for duration
-    UILabel *durationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 220.0, 15.0)];
-    durationLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    durationLabel.tag = 4;
-    durationLabel.font = [UIFont systemFontOfSize:15.0];
-    durationLabel.textColor = [UIColor darkGrayColor];
-    durationLabel.text = @"►";
-    
-    [cell.contentView addSubview:durationLabel];
-    
-    // Right label
-    NSDictionary *labelDictionary = @{@"labelView":durationLabel};
-    NSArray *constraint_POS_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[labelView]-|"
-                                                                        options:0
-                                                                        metrics:nil
-                                                                          views:labelDictionary];
-    NSArray *constraint_POS_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[labelView]"
-                                                                        options:NSLayoutFormatAlignAllCenterY
-                                                                        metrics:nil
-                                                                          views:labelDictionary];
-    [cell.contentView addConstraints:constraint_POS_V];
-    [cell.contentView addConstraints:constraint_POS_H];
-    
-//    cell.textLabel.text = savedTopic.channel;
-//    cell.detailTextLabel.text = @"April 5 2015";
+    // Unread image
+    UIImageView *unreadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Unread"]];
+    cell.accessoryView = unreadImage;
+    [cell.accessoryView setFrame:CGRectMake(0, 0, 20, 20)];
     
     return cell;
 }
@@ -153,21 +137,64 @@
     return NSLocalizedString(@"PREVIOUSLY SAVED:", @"");
 }
 
-#pragma mark - cell selection behaviour
+#pragma mark - Cell selection behaviour
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Get cell channel
-    SavedTopic *savedTopic = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSString *cellChannel = savedTopic.channel;
-    
-    // Find the topic of speach
-    if([cellChannel isEqualToString:@"Today"]) {
-        [self speakToday:savedTopic.data];
-    } else if([cellChannel isEqualToString:@"Weather"]) {
-        [self speakWeather:savedTopic.data];
-    } else if([cellChannel isEqualToString:@"Calendar Events"]) {
-        [self speakCalendarEvents:savedTopic.data];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if([self image:((UIImageView *)cell.accessoryView).image isEqualTo:[UIImage imageNamed:@"Unread"]] ||
+       cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+        // Not speaking this cell --> speak it
+        
+        // First check if another cell is speaking, and shut it down
+        if(self.speechSynthesizer.speaking) {
+            [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+            [self markCurrentlySpokenCellAsDone];
+        }
+        
+        if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
+            cell.accessoryType = UITableViewCellAccessoryNone; // Clear out the checkmark if it's there
+        
+        SavedTopic *savedTopic = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSString *cellChannel = savedTopic.channel;
+        
+        // Find the topic of speach
+        if([cellChannel isEqualToString:@"Today"]) {
+            [self speakToday:savedTopic.data];
+        } else if([cellChannel isEqualToString:@"Weather"]) {
+            [self speakWeather:savedTopic.data];
+        } else if([cellChannel isEqualToString:@"Calendar Events"]) {
+            [self speakCalendarEvents:savedTopic.data];
+        }
+        // Set current cell as being spoken
+        self.rowOfCellBeingSpoken = (int)indexPath.row;
+        
+        // Set accessory icon to speaker while speaking
+        [self setCellAccessoryView:cell ToImageWithName:@"Speaker"];
+    } else if([self image:((UIImageView *)cell.accessoryView).image isEqualTo:[UIImage imageNamed:@"Speaker"]]) {
+        // Cell just tapped is being spoken --> pause it
+        NSLog(@"About to pause");
+        [self.speechSynthesizer pauseSpeakingAtBoundary:AVSpeechBoundaryWord];
+        
+        // Set accessory icon to paused
+        [self setCellAccessoryView:cell ToImageWithName:@"Paused"];
+    } else if([self image:((UIImageView *)cell.accessoryView).image isEqualTo:[UIImage imageNamed:@"Paused"]]) {
+        // Speak is paused --> resume
+        [self.speechSynthesizer continueSpeaking];
+        
+        // Change icon back to speaker
+        if(self.speechSynthesizer.speaking) // Still didn't finish
+            [self setCellAccessoryView:cell ToImageWithName:@"Speaker"];
+        else {
+            cell.accessoryView = nil;
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
+    
+    // Unselect the selected row
+    NSIndexPath* selection = [self.tableView indexPathForSelectedRow];
+    if (selection)
+        [self.tableView deselectRowAtIndexPath:selection animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,27 +216,65 @@
     }
 }
 
+- (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2
+{
+    NSData *data1 = UIImagePNGRepresentation(image1);
+    NSData *data2 = UIImagePNGRepresentation(image2);
+    
+    return [data1 isEqual:data2];
+}
+
+// Put checkmark on cell with the speaker icon
+- (void)markCurrentlySpokenCellAsDone {
+    NSIndexPath* cellPath = [NSIndexPath indexPathForRow:self.rowOfCellBeingSpoken inSection:0];
+    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellPath];
+
+    // Remove current image and set checkmark
+    cell.accessoryView = nil;
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+}
+
+- (void)setCellAccessoryView:(UITableViewCell *)cell
+             ToImageWithName:(NSString *)imageName {
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    cell.accessoryView = imageView;
+    [cell.accessoryView setFrame:CGRectMake(0, 0, 20, 20)];
+}
+
 #pragma mark - Speaking utterances
 - (void)speakToday:(NSString *)speechString {
-    // Today
-    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:speechString];
+    // Today (mark end with ])
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:
+                                    [NSString stringWithFormat:@"%@]",speechString]];
     [self setUpVoiceAndSpeak:utterance];
 }
 
 - (void)speakWeather:(NSString *)speechString {
-    // Weather
+    // Weather (mark end with ])
     NSArray *weatherSentences = [speechString componentsSeparatedByString:@".."];
     for(NSString *weatherSentence in weatherSentences) {
-        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:weatherSentence];
+        AVSpeechUtterance *utterance = nil;
+        if([weatherSentence isEqualToString:[weatherSentences lastObject]])
+            utterance = [[AVSpeechUtterance alloc] initWithString:
+                         [NSString stringWithFormat:@"%@]",weatherSentence]];
+        else
+            utterance = [[AVSpeechUtterance alloc] initWithString:weatherSentence];
+        
         [self setUpVoiceAndSpeak:utterance];
     }
 }
 
 
 - (void)speakCalendarEvents:(NSArray *)speechArray {
-    // Calendar events
+    // Calendar events (mark end with ])
     for(NSString *eventSentence in speechArray) {
-        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:eventSentence];
+        AVSpeechUtterance *utterance = nil;
+        if([eventSentence isEqualToString:[speechArray lastObject]])
+            utterance = [[AVSpeechUtterance alloc] initWithString:
+                         [NSString stringWithFormat:@"%@]",eventSentence]];
+        else
+            utterance = [[AVSpeechUtterance alloc] initWithString:eventSentence];
+        
         [self setUpVoiceAndSpeak:utterance];
     }
 }
@@ -222,6 +287,13 @@
     
     // Speak
     [self.speechSynthesizer speakUtterance:utterance];
+}
+
+
+#pragma mark - SpeechUtterance delegate
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
+//    if([utterance.speechString hasSuffix:@"]"])
+//        [self markCurrentlySpokenCellAsDone];
 }
 
 #pragma mark - Extra stuff
