@@ -10,14 +10,30 @@
 #import "SavedTopic.h"
 #import "SavedTopic+SavedTopicCategory.h"
 #import "SavedTopicsDatabaseAvailability.h"
+#import "SavedCDTVC+MOC.h"
 
 @interface SavedCDTVC ()
 @property (strong, nonatomic) AVSpeechSynthesizer *speechSynthesizer;
+@property (nonatomic, strong) NSManagedObjectContext *savedTopicDatabaseContext;
 @end
 
 @implementation SavedCDTVC
 
+// Post notification when context is set (for a refresh when deleting cells)
+- (void)setSavedTopicDatabaseContext:(NSManagedObjectContext *)savedTopicDatabaseContext {
+    _savedTopicDatabaseContext = savedTopicDatabaseContext;
+    
+    NSDictionary *userInfo = self.savedTopicDatabaseContext ? @{ SavedTopicsDatabaseAvailabilityContext : self.savedTopicDatabaseContext } : nil;
+    
+    // Post notification to tell the saved table list there's new data
+    [[NSNotificationCenter defaultCenter] postNotificationName:SavedTopicsDatabaseAvailabilityNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+}
+
+
 - (void)awakeFromNib {
+    // Receive notification in order to refresh table
     [[NSNotificationCenter defaultCenter] addObserverForName:SavedTopicsDatabaseAvailabilityNotification
                                                       object:nil
                                                        queue:nil
@@ -151,6 +167,25 @@
         [self speakWeather:savedTopic.data];
     } else if([cellChannel isEqualToString:@"Calendar Events"]) {
         [self speakCalendarEvents:savedTopic.data];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        SavedTopic *savedTopic = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSDate *cellDate = savedTopic.date;
+        
+        self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
+        NSManagedObjectContext *context = self.savedTopicDatabaseContext;
+        
+        [context performBlock:^{
+            [SavedTopic removeFromSavedListWithDate:cellDate
+                             inManagedObjectContext:context];
+            [context save:NULL];
+        }];
+
+    } else {
+        NSLog(@"Unhandled editing style! %ld", editingStyle);
     }
 }
 

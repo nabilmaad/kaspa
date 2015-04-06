@@ -302,56 +302,6 @@
             <point key="canvasLocation" x="-275" y="-236"/>
         </scene>
         <!--Saved-->
-        <scene sceneID="H3p-wH-BOs">
-            <objects>
-                <tableViewController id="kJc-2e-BFq" customClass="SavedTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="10" sectionFooterHeight="10" id="hDd-6N-8ra">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Saved Track Cell" textLabel="Y6U-Yz-DAD" detailTextLabel="HSQ-Nu-8bm" imageView="qAQ-Mf-v7g" style="IBUITableViewCellStyleSubtitle" id="sgM-Tx-2Bc">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sgM-Tx-2Bc" id="feR-rz-goV">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y6U-Yz-DAD">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HSQ-Nu-8bm">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="second" id="qAQ-Mf-v7g">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="kJc-2e-BFq" id="3Xb-MD-AAj"/>
-                            <outlet property="delegate" destination="kJc-2e-BFq" id="2QM-g1-0Xd"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Saved" id="BQw-vZ-hkN">
-                        <barButtonItem key="rightBarButtonItem" title="Play All" id="ztK-bK-KLH">
-                            <connections>
-                                <action selector="PlayAllButtonPressed:" destination="kJc-2e-BFq" id="eiN-2I-beC"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kgz-ph-LNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="549" y="1224"/>
-        </scene>
-        <!--Saved-->
         <scene sceneID="lSt-S4-kOX">
             <objects>
                 <tableViewController id="D9S-je-DTA" customClass="SavedCDTVC" sceneMemberID="viewController">

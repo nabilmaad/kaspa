@@ -260,7 +260,8 @@
     // Set notification text
     localNotif.alertBody = @"You can listen to your daily briefing."; // Message
     localNotif.alertAction = @"Listen"; // Action button title
-    localNotif.alertTitle = @"Briefing Ready"; // Apple Watch short look text
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.2)
+        localNotif.alertTitle = @"Briefing Ready"; // Apple Watch short look text
     
     // Add badge & notification sound
     localNotif.applicationIconBadgeNumber = 1;

@@ -14,10 +14,10 @@
 		BD5EB2821AD0ECF90019DB8C /* SavedCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2811AD0ECF90019DB8C /* SavedCDTVC.m */; };
 		BD5EB2881AD13BD70019DB8C /* AppDelegate+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2871AD13BD70019DB8C /* AppDelegate+MOC.m */; };
 		BD5EB28C1AD14DD80019DB8C /* KaspaViewController+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB28B1AD14DD80019DB8C /* KaspaViewController+MOC.m */; };
+		BD5EB2931AD274A00019DB8C /* SavedCDTVC+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5EB2921AD274A00019DB8C /* SavedCDTVC+MOC.m */; };
 		BD6725501A7F6D2A00369958 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD67254F1A7F6D2A00369958 /* MyoKit.framework */; };
 		BD6725521A7F6D7000369958 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6725511A7F6D7000369958 /* CoreBluetooth.framework */; };
 		BD6725541A7F6D7A00369958 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6725531A7F6D7A00369958 /* SystemConfiguration.framework */; };
-		BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */; };
 		BD81E1AD1A7CB0BA001B13A0 /* FromTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1AC1A7CB0BA001B13A0 /* FromTimePickerViewController.m */; };
 		BD81E1B11A7CB9AC001B13A0 /* ToTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B01A7CB9AC001B13A0 /* ToTimePickerViewController.m */; };
 		BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81E1B31A7EEF66001B13A0 /* ChannelsTableViewController.m */; };
@@ -63,11 +63,11 @@
 		BD5EB28A1AD14DD80019DB8C /* KaspaViewController+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KaspaViewController+MOC.h"; sourceTree = "<group>"; };
 		BD5EB28B1AD14DD80019DB8C /* KaspaViewController+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KaspaViewController+MOC.m"; sourceTree = "<group>"; };
 		BD5EB2901AD15FDE0019DB8C /* Backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Backend.h; sourceTree = "<group>"; };
+		BD5EB2911AD274A00019DB8C /* SavedCDTVC+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SavedCDTVC+MOC.h"; sourceTree = "<group>"; };
+		BD5EB2921AD274A00019DB8C /* SavedCDTVC+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SavedCDTVC+MOC.m"; sourceTree = "<group>"; };
 		BD67254F1A7F6D2A00369958 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyoKit.framework; sourceTree = "<group>"; };
 		BD6725511A7F6D7000369958 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		BD6725531A7F6D7A00369958 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		BD81E1A81A7C3C01001B13A0 /* SavedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedTableViewController.h; sourceTree = "<group>"; };
-		BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedTableViewController.m; sourceTree = "<group>"; };
 		BD81E1AB1A7CB0BA001B13A0 /* FromTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromTimePickerViewController.h; sourceTree = "<group>"; };
 		BD81E1AC1A7CB0BA001B13A0 /* FromTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromTimePickerViewController.m; sourceTree = "<group>"; };
 		BD81E1AF1A7CB9AC001B13A0 /* ToTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToTimePickerViewController.h; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 				BD5EB27C1AD0EA100019DB8C /* CoreDataTableViewController */,
 				BD5EB2801AD0ECF90019DB8C /* SavedCDTVC.h */,
 				BD5EB2811AD0ECF90019DB8C /* SavedCDTVC.m */,
-				BD81E1A81A7C3C01001B13A0 /* SavedTableViewController.h */,
-				BD81E1A91A7C3C01001B13A0 /* SavedTableViewController.m */,
+				BD5EB2911AD274A00019DB8C /* SavedCDTVC+MOC.h */,
+				BD5EB2921AD274A00019DB8C /* SavedCDTVC+MOC.m */,
 			);
 			name = "Saved List Tab";
 			sourceTree = "<group>";
@@ -386,11 +386,11 @@
 				BDF021051A72F8AA00FE3606 /* KaspaViewController.m in Sources */,
 				BD5EB28C1AD14DD80019DB8C /* KaspaViewController+MOC.m in Sources */,
 				BDF020FF1A72F8AA00FE3606 /* AppDelegate.m in Sources */,
+				BD5EB2931AD274A00019DB8C /* SavedCDTVC+MOC.m in Sources */,
 				BD5EB2751AD0DE860019DB8C /* SavedTopics.xcdatamodeld in Sources */,
 				BD5EB2881AD13BD70019DB8C /* AppDelegate+MOC.m in Sources */,
 				BD81E1B41A7EEF66001B13A0 /* ChannelsTableViewController.m in Sources */,
 				BD81E1AD1A7CB0BA001B13A0 /* FromTimePickerViewController.m in Sources */,
-				BD81E1AA1A7C3C01001B13A0 /* SavedTableViewController.m in Sources */,
 				BDF020FC1A72F8AA00FE3606 /* main.m in Sources */,
 				BD81E1B11A7CB9AC001B13A0 /* ToTimePickerViewController.m in Sources */,
 				BDE704F81ABEF4010052245A /* WeatherHandler.m in Sources */,
@@ -518,6 +518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -525,6 +526,7 @@
 				INFOPLIST_FILE = Kaspa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -533,6 +535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -540,6 +543,7 @@
 				INFOPLIST_FILE = Kaspa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

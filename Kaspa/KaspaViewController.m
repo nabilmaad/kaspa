@@ -29,6 +29,7 @@
     
     NSDictionary *userInfo = self.savedTopicDatabaseContext ? @{ SavedTopicsDatabaseAvailabilityContext : self.savedTopicDatabaseContext } : nil;
     
+    // Post notification to tell the saved table list there's new data
     [[NSNotificationCenter defaultCenter] postNotificationName:SavedTopicsDatabaseAvailabilityNotification
                                                         object:self
                                                       userInfo:userInfo];
@@ -36,7 +37,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
     
     // Posted when a new pose is available from a TLMMyo.
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -173,6 +173,7 @@
     NSString *currentTopicChannel = self.currentLabel.text;
     
     // Save currently spoken topic to saved list tab
+    self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
     NSManagedObjectContext *context = self.savedTopicDatabaseContext;
     [context performBlock:^{
         [SavedTopic addToSavedList:currentTopicChannel

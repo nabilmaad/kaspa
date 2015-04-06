@@ -14,5 +14,6 @@
                       withData:(id)data
                        andDate:(NSDate *)date
         inManagedObjectContext:(NSManagedObjectContext *)context;
-
++(SavedTopic *)removeFromSavedListWithDate:(NSDate *)date
+                    inManagedObjectContext:(NSManagedObjectContext *)context;
 @end

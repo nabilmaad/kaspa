@@ -45,4 +45,29 @@
     return savedTopic;
 }
 
++(SavedTopic *)removeFromSavedListWithDate:(NSDate *)date
+                    inManagedObjectContext:(NSManagedObjectContext *)context {
+
+    SavedTopic *topicToDelete = nil;
+    
+    // Create a request on the core data DB to check if it already exists
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"SavedTopic"];
+    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", date];
+    
+    // Execute the fetch requet
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+
+    // Check if there's a match or error
+    if(!matches || error || ([matches count] == 0)) {
+        // Handle error
+    } else {
+        // Found object to delete
+        topicToDelete = [matches firstObject];
+        [context deleteObject:topicToDelete];
+    }
+    
+    return topicToDelete;
+}
+
 @end
