@@ -85,7 +85,7 @@
 
     // Build weather string including ".." for longer pauses
     NSString *weatherString = [NSString stringWithFormat:
-                               @"Let's check today's weather.. It looks like you'll be seeing some %@. "
+                               @"Let's check today's weather.. Here's a summary of today's forecast: %@. "
                                "The daily temperature will range between %d and %d degrees celcius..",
                                weatherCondition, minTempCelcius, maxTempCelcius];
 

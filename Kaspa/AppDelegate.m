@@ -90,7 +90,7 @@
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
 #warning Remove later on
-    bool testingFetch = NO;
+    bool testingFetch = YES;
     
     if(testingFetch || (minutesTillWakeUp <= 100 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
@@ -186,21 +186,46 @@
     // Get event list for today
     EKEventStore *eventStore = [[EKEventStore alloc] init];
     [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-        // Create the end date components
+        // Create the date components of the beginning of the day
         NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *oneDayFromNowComponents = [[NSDateComponents alloc] init];
-        oneDayFromNowComponents.day = 1;
-        NSDate *oneDayFromNow = [calendar dateByAddingComponents:oneDayFromNowComponents
-                                                           toDate:[NSDate date]
-                                                          options:0];
+        NSDateComponents *beginningOfTodayComponents = [calendar components:( NSCalendarUnitYear | NSCalendarUnitMonth |
+                                                                          NSCalendarUnitDay | NSCalendarUnitHour |
+                                                                          NSCalendarUnitMinute | NSCalendarUnitSecond )
+                                                                fromDate:[NSDate date]];
+        beginningOfTodayComponents.hour = 0;
+        beginningOfTodayComponents.minute = 0;
+        beginningOfTodayComponents.second = 0;
+        NSDate *beginningOfToday = [calendar dateFromComponents:beginningOfTodayComponents];
+        
+        // Create the date components of the end of the day
+        NSDateComponents *endOfTodayComponents = [calendar components:( NSCalendarUnitYear | NSCalendarUnitMonth |
+                                                                          NSCalendarUnitDay | NSCalendarUnitHour |
+                                                                          NSCalendarUnitMinute | NSCalendarUnitSecond )
+                                                                fromDate:[NSDate date]];
+        endOfTodayComponents.hour = 23;
+        endOfTodayComponents.minute = 59;
+        endOfTodayComponents.second = 59;
+        NSDate *endOfToday = [calendar dateFromComponents:endOfTodayComponents];
         
         // Create the predicate from the event store's instance method
-        NSPredicate *predicate = [eventStore predicateForEventsWithStartDate:[NSDate date]
-                                                                     endDate:oneDayFromNow
+        NSPredicate *predicate = [eventStore predicateForEventsWithStartDate:beginningOfToday
+                                                                     endDate:endOfToday
                                                                    calendars:nil];
         
         // Fetch all events that match the predicate
         NSArray *events = [eventStore eventsMatchingPredicate:predicate];
+        NSLog(@"First: %@", events);
+        
+        // Remove any event that started before today and has an end date today
+        for(EKEvent *event in events) {
+            if([event.startDate compare:beginningOfToday] == NSOrderedAscending) {
+                NSMutableArray *tempArray = [events mutableCopy];
+                [tempArray removeObject:event];
+                events = [tempArray copy];
+            }
+        }
+        NSLog(@"Second: %@", events);
+        
         // Save events as strings
         NSMutableArray *eventsText = [[NSMutableArray alloc] initWithObjects:@"Let's take a look at your calendar for today.", nil];
         
