@@ -214,7 +214,6 @@
         
         // Fetch all events that match the predicate
         NSArray *events = [eventStore eventsMatchingPredicate:predicate];
-        NSLog(@"First: %@", events);
         
         // Remove any event that started before today and has an end date today
         for(EKEvent *event in events) {
@@ -224,7 +223,6 @@
                 events = [tempArray copy];
             }
         }
-        NSLog(@"Second: %@", events);
         
         // Save events as strings
         NSMutableArray *eventsText = [[NSMutableArray alloc] initWithObjects:@"Let's take a look at your calendar for today.", nil];

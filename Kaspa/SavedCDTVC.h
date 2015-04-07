@@ -12,5 +12,4 @@
 
 @interface SavedCDTVC : CoreDataTableViewController <AVSpeechSynthesizerDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @end

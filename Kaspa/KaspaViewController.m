@@ -12,6 +12,7 @@
 #import "SavedTopicsDatabaseAvailability.h"
 
 @interface KaspaViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *playButton;
 @property (strong, nonatomic) NSMutableDictionary *briefing;
 @property (strong, nonatomic) AVSpeechSynthesizer *speechSynthesizer;
 @property (weak, nonatomic) IBOutlet UIImageView *currentImage;
@@ -38,11 +39,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Add tap recognizer to play image
+    [self.playButton setImage:[UIImage imageNamed:@"Play"]];
+    [self.playButton setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playButtonTapped:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [self.playButton addGestureRecognizer:singleTap];
+    
     // Posted when a new pose is available from a TLMMyo.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceivePoseChange:)
                                                  name:TLMMyoDidReceivePoseChangedNotification
                                                object:nil];
+}
+
+- (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2
+{
+    NSData *data1 = UIImagePNGRepresentation(image1);
+    NSData *data2 = UIImagePNGRepresentation(image2);
+    
+    return [data1 isEqual:data2];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,8 +85,19 @@
         [self.briefing setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Calendar Events data"] forKey:@"Calendar Events"];
 }
 
+
+
 #pragma mark Play/Pause reaction
-- (IBAction)playButtonPressed:(id)sender {
+-(void)playButtonTapped:(UIGestureRecognizer *)recognizer
+{
+    if([self image:self.playButton.image isEqualTo:[UIImage imageNamed:@"Play"]])
+        [self.playButton setImage:[UIImage imageNamed:@"Pause"]];
+    else
+        [self.playButton setImage:[UIImage imageNamed:@"Play"]];
+    [self playButtonPressed:nil];
+}
+
+- (void)playButtonPressed:(id)sender {
     if(!self.speechSynthesizer) {
         // Clear notification if it's there
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
@@ -251,6 +278,7 @@
         // Today image and label
         self.currentLabel.text = @"Today";
         self.nextLabel.text = @"Weather";
+        [self.currentImage setImage:[UIImage imageNamed:@"Calendar"]];
         [self.nextImage setImage:[UIImage imageNamed:@"Weather"]];
     } else if([utterance.speechString hasPrefix:@"Let's check today's weather"]) {
         // Weather image and label
