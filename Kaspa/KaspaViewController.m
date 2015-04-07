@@ -140,14 +140,19 @@
 
 #pragma mark - Jumping to next topic
 - (IBAction)swipedRight:(id)sender {
-    if(self.speechSynthesizer.speaking)
+    if(self.speechSynthesizer.speaking) {
+        // Stop speaking
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+        
+        // Say "Skipping"
+        [self saySkipping];
+        
+        // Skip
         [self skipToNextSubject];
+    }
 }
 
 - (void)skipToNextSubject {
-    // Stop speaking
-    [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
-
     // Find current subject
     NSString *currentSubject = self.currentLabel.text;
     
@@ -160,10 +165,24 @@
     }
 }
 
+- (void)saySkipping {
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:@"Skipping."];
+    [self setUpVoiceAndSpeak:utterance];
+}
+
 #pragma mark - Saving topic
 - (IBAction)swipedDown:(id)sender {
     if(self.speechSynthesizer.speaking) {
+        // Stop speaking
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+        
+        // Say "Saving"
+        [self saySaving];
+        
+        // Save
         [self saveCurrentTopic];
+        
+        // Skip
         [self skipToNextSubject];
     }
 }
@@ -184,6 +203,11 @@
     }];
 }
 
+- (void)saySaving {
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:@"Saving."];
+    [self setUpVoiceAndSpeak:utterance];
+}
+
 #pragma mark - Myo
 - (void)didReceivePoseChange:(NSNotification *)notification {
     // Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
@@ -199,24 +223,22 @@
         case TLMPoseTypeFist:
             NSLog(@"Fist");
             if(self.speechSynthesizer.speaking) {
-                [self saveCurrentTopic];
-                [self skipToNextSubject];
+                [self swipedDown:nil];
             }
             break;
         case TLMPoseTypeWaveIn:
             NSLog(@"Wave in");
             if(self.speechSynthesizer.speaking) {
-                [self skipToNextSubject];
+                [self swipedRight:nil];
             }
             break;
         case TLMPoseTypeWaveOut:
             NSLog(@"Wave out");
             if(self.speechSynthesizer.speaking)
-                [self skipToNextSubject];
+                [self swipedRight:nil];
             break;
         case TLMPoseTypeFingersSpread:
             NSLog(@"Fingers spread");
-            NSLog(@"%ld", pose.myo.arm);
             [self playButtonPressed:nil];
             break;
             

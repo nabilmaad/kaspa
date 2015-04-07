@@ -173,7 +173,6 @@
         [self setCellAccessoryView:cell ToImageWithName:@"Speaker"];
     } else if([self image:((UIImageView *)cell.accessoryView).image isEqualTo:[UIImage imageNamed:@"Speaker"]]) {
         // Cell just tapped is being spoken --> pause it
-        NSLog(@"About to pause");
         [self.speechSynthesizer pauseSpeakingAtBoundary:AVSpeechBoundaryWord];
         
         // Set accessory icon to paused
