@@ -10,6 +10,8 @@
 #define Kaspa_Backend_h
 
 #define BackendUrl @"http://54.84.109.235/"
+#define IndexFile @"index.html"
+
 #define ChannelsUrl BackendUrl @"channels/"
 #define TodayChannelUrl ChannelsUrl @"today/"
 
