@@ -68,6 +68,9 @@
         case 2:
             cell.textLabel.text = @"Calendar Events";
             break;
+            
+        case 3:
+            cell.textLabel.text = @"Top News";
         
         default:
             break;

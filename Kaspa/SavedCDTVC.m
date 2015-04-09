@@ -58,8 +58,8 @@
 
 - (AVSpeechSynthesizer *)speechSynthesizer {
     if(!_speechSynthesizer) {
-        self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
-        self.speechSynthesizer.delegate = self;
+        _speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+        _speechSynthesizer.delegate = self;
     }
     return _speechSynthesizer;
 }
@@ -242,21 +242,24 @@
 
 #pragma mark - Speaking utterances
 - (void)speakToday:(NSString *)speechString {
-    // Today (mark end with ])
+    // Today (mark end with ...)
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:
-                                    [NSString stringWithFormat:@"%@]",speechString]];
+                                    [NSString stringWithFormat:@"%@]", speechString]];
     [self setUpVoiceAndSpeak:utterance];
 }
 
 - (void)speakWeather:(NSString *)speechString {
-    // Weather (mark end with ])
-    NSArray *weatherSentences = [speechString componentsSeparatedByString:@".."];
+    // Weather (mark end with ...)
+    NSMutableArray *weatherSentences = [[speechString componentsSeparatedByString:@".."] mutableCopy];
+    // Remove last object since it's an empty string
+    [weatherSentences removeLastObject];
+    
     for(NSString *weatherSentence in weatherSentences) {
         AVSpeechUtterance *utterance = nil;
-        if([weatherSentence isEqualToString:[weatherSentences lastObject]])
+        if([weatherSentence isEqualToString:[weatherSentences lastObject]]) {
             utterance = [[AVSpeechUtterance alloc] initWithString:
                          [NSString stringWithFormat:@"%@]",weatherSentence]];
-        else
+        } else
             utterance = [[AVSpeechUtterance alloc] initWithString:weatherSentence];
         
         [self setUpVoiceAndSpeak:utterance];
@@ -291,8 +294,8 @@
 
 #pragma mark - SpeechUtterance delegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
-//    if([utterance.speechString hasSuffix:@"]"])
-//        [self markCurrentlySpokenCellAsDone];
+    if([utterance.speechString hasSuffix:@"]"])
+        [self markCurrentlySpokenCellAsDone];
 }
 
 #pragma mark - Extra stuff

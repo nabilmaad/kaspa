@@ -97,7 +97,8 @@
         // Get app's internal data
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         self.dataFetchForTodaySuccessful = [userDefaults boolForKey:@"Today Fetch Successful"] &&
-                                    [userDefaults boolForKey:@"Weather Fetch Successful"];
+                                    [userDefaults boolForKey:@"Weather Fetch Successful"] &&
+                                    [userDefaults boolForKey:@"Top News Fetch Successful"];
         
         if(!self.dataFetchForTodaySuccessful || testingFetch) {
             NSLog(@"Data fetch unsucessful, so gonna get data");
@@ -112,6 +113,9 @@
             // Calendar Events
             if([userDefaults boolForKey:@"Calendar Events state"])
                 [self getCalendarEventsData];
+            
+            if([userDefaults boolForKey:@"Top News state"])
+                [self getTopNewsData];
             
             completionHandler(UIBackgroundFetchResultNewData);
         } else
@@ -267,6 +271,40 @@
         [userDefaults setObject:eventsText forKey:@"Calendar Events data"];
         [userDefaults synchronize];
     }];
+}
+
+- (void)getTopNewsData {
+    // Create Top News URL
+    NSString *topNewsUrl = [NSString stringWithFormat:@"%@%@", TopNewsChannelUrl, TopNewsFile];
+    
+    // Fetch today data
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:[NSURL URLWithString:topNewsUrl]
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+                if (!error && httpResp.statusCode == 200) {
+                    // Get top news as dictionary
+                    NSError *error;
+                    NSDictionary *topNewsData =
+                    [NSJSONSerialization JSONObjectWithData:data
+                                                    options:kNilOptions
+                                                      error:&error];
+                    
+                    // Save top news data
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:topNewsData forKey:@"Top News data"];
+                    
+                    // Log success
+                    [userDefaults setBool:YES forKey:@"Top News Fetch Successful"];
+                    [userDefaults synchronize];
+                } else {
+                    NSLog(@"Top News error: %@", error.description);
+                }
+            }
+      ] resume
+     ];
 }
 
 # pragma mark - Local notification

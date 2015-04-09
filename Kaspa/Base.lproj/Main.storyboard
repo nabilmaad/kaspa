@@ -254,6 +254,7 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="atc-WQ-Bn3" appends="YES" id="L6U-4u-Gw3"/>
                             <outletCollection property="gestureRecognizers" destination="CXg-gP-awT" appends="YES" id="T82-Mx-a1x"/>
+                            <outletCollection property="gestureRecognizers" destination="pse-iO-Kcz" appends="YES" id="VY4-qI-xaV"/>
                         </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Kaspa" id="Fb5-7B-wHx"/>
@@ -276,6 +277,11 @@
                         <action selector="swipedDown:" destination="soZ-Hv-EbV" id="ucn-cF-dS6"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="pse-iO-Kcz">
+                    <connections>
+                        <action selector="doubleTapped:" destination="soZ-Hv-EbV" id="bFx-qd-TZ8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-275" y="-236"/>
         </scene>
@@ -491,6 +497,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="agJ-Yh-VWq">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Iju-6z-OGB" style="IBUITableViewCellStyleDefault" id="KNH-VG-FUp">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KNH-VG-FUp" id="XXa-Mq-8O9">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Iju-6z-OGB">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

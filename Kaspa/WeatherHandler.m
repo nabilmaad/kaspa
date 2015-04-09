@@ -91,7 +91,7 @@
 
     // Add minimum "feels like" temperature if necessary
     if(minApparentTempCelcius < minTempCelcius) {
-        weatherString = [NSString stringWithFormat:@"%@ Due to windchill, the low temperature will "
+        weatherString = [NSString stringWithFormat:@"%@Due to windchill, the low temperature will "
                           "feel like %d degrees celcius..", weatherString, minApparentTempCelcius];
     }
     

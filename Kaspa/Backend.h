@@ -15,4 +15,7 @@
 
 #define WeatherChannelUrl @"https://api.forecast.io/forecast/462d3f7b5db0918a83c79352db4b0b7f/"
 
+#define TopNewsChannelUrl ChannelsUrl @"top_news/"
+#define TopNewsFile @"news"
+
 #endif
