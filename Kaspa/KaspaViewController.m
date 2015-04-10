@@ -335,7 +335,7 @@
             break;
         case TLMPoseTypeFingersSpread:
             NSLog(@"Fingers spread");
-            [self playButtonPressed:nil];
+            [self playButtonTapped:nil];
             break;
             
     }
