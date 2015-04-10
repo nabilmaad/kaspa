@@ -186,7 +186,7 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7B4-z2-5aN">
                                 <rect key="frame" x="279" y="211" width="42" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -257,7 +257,7 @@
                             <outletCollection property="gestureRecognizers" destination="pse-iO-Kcz" appends="YES" id="VY4-qI-xaV"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Kaspa" id="Fb5-7B-wHx"/>
+                    <tabBarItem key="tabBarItem" title="Kaspa" image="Kaspa" id="Fb5-7B-wHx"/>
                     <connections>
                         <outlet property="currentImage" destination="joQ-gb-tKt" id="0Pc-qa-BXr"/>
                         <outlet property="currentLabel" destination="7B4-z2-5aN" id="CAr-T7-VkD"/>
@@ -355,7 +355,7 @@
         <scene sceneID="QiQ-Ug-9XR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3VN-i2-ER6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Configuration" id="BS4-9H-c1U"/>
+                    <tabBarItem key="tabBarItem" title="Configuration" image="Configuration" id="BS4-9H-c1U"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z5B-cr-nX1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -374,7 +374,7 @@
         <scene sceneID="dc4-5v-0xh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HiI-gA-xs4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Saved" id="j4E-fz-vZB"/>
+                    <tabBarItem key="tabBarItem" title="Saved" image="Saved" id="j4E-fz-vZB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5ue-ze-u94">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -534,6 +534,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Configuration" width="25" height="25"/>
+        <image name="Kaspa" width="25" height="25"/>
+        <image name="Saved" width="25" height="25"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

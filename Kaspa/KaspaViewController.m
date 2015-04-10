@@ -133,9 +133,6 @@
             [self speakCalendarEvents];
         if([self.briefing objectForKey:@"Top News"])
             [self speakTopNews];
-        
-        // Speak goodbye message
-        [self speakGoodbye];
 
     } else if(self.speechSynthesizer.speaking && !self.speechSynthesizer.paused) {
         // Pause briefing
@@ -181,7 +178,8 @@
 
 - (void)speakTopNews {
     // Top news
-    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:@"Here are the current top news"];
+    NSString *topNewsIntroduction = @"Here are the current headlines. Remember that I can tell you more details if you ask me to.]";
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:topNewsIntroduction];
     [self setUpVoiceAndSpeak:utterance];
     
     // Only add the top news utterances to the array if they're not there yet
@@ -192,9 +190,8 @@
         }
     }
     
-    // Start speaking first item
-    self.indexOfCurrentlySpokenItemInTopNews = 0;
-    [self setUpVoiceAndSpeak:[self.topNews firstObject]];
+    // This is used to correctly start at index 0 when the next utterance starts
+    self.indexOfCurrentlySpokenItemInTopNews = -1;
 }
 
 - (void)setUpVoiceAndSpeak:(AVSpeechUtterance *)utterance {
@@ -230,16 +227,13 @@
         [self speakWeather];
         [self speakCalendarEvents];
         [self speakTopNews];
-        [self speakGoodbye];
     } else if([currentSubject isEqualToString:@"Weather"]) {
         [self speakCalendarEvents];
         [self speakTopNews];
-        [self speakGoodbye];
     } else if([currentSubject isEqualToString:@"Calendar Events"]) {
         [self speakTopNews];
-        [self speakGoodbye];
     }  else if([currentSubject isEqualToString:@"Top News"]) {
-        [self speakGoodbye];
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
     }
 }
 
@@ -294,10 +288,19 @@
     NSString *headlineBeingSpoken = [modifiedHeadlineBeingSpoken substringToIndex:[modifiedHeadlineBeingSpoken length] - 1];
     // Get its matching detailed description
     NSString *detailedArticleToBeAdded = [[self.briefing objectForKey:@"Top News"] objectForKey:headlineBeingSpoken];
-    // Create the utterance for it
-    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[NSString stringWithFormat:@"%@]", detailedArticleToBeAdded]];
-    // Add the description to the array of top news right after
-    [self.topNews insertObject:utterance atIndex:(self.indexOfCurrentlySpokenItemInTopNews+1)];
+    // Create the utterances for it
+    NSMutableArray *detailedArticleSentences = [[detailedArticleToBeAdded componentsSeparatedByString:@"."] mutableCopy];
+    [detailedArticleSentences removeLastObject]; // It's an empty string
+    int index = 0; // Used to correctly place sentences one after another in the array
+    for(NSString *sentence in detailedArticleSentences) {
+        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[NSString stringWithFormat:@"%@]", sentence]];
+        // Add the description to the array of top news right after
+        [self.topNews insertObject:utterance atIndex:(self.indexOfCurrentlySpokenItemInTopNews+1+index)];
+        index++;
+    }
+    // Mention that we're moving to the next headline
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:[NSString stringWithFormat:@"Moving to the next headline.]"]];
+    [self.topNews insertObject:utterance atIndex:(self.indexOfCurrentlySpokenItemInTopNews+1+index)];
 }
 
 
@@ -338,13 +341,13 @@
     }
 }
 
-#pragma mark - SpeechUtterance delegate
+#pragma mark - SpeechSynthesizer delegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didStartSpeechUtterance:(AVSpeechUtterance *)utterance {
     if([utterance.speechString hasPrefix:@"Today is"]) {
         // Today image and label
         self.currentLabel.text = @"Today";
         self.nextLabel.text = @"Weather";
-        [self.currentImage setImage:[UIImage imageNamed:@"Calendar"]];
+        [self.currentImage setImage:[UIImage imageNamed:@"Today"]];
         [self.nextImage setImage:[UIImage imageNamed:@"Weather"]];
     } else if([utterance.speechString hasPrefix:@"Let's check today's weather"]) {
         // Weather image and label
@@ -357,27 +360,39 @@
         self.currentLabel.text = @"Calendar Events";
         self.nextLabel.text = @"Top News";
         [self.currentImage setImage:[UIImage imageNamed:@"Calendar"]];
-        [self.nextImage setImage:[UIImage imageNamed:@"second"]];
-    } else if([utterance.speechString hasPrefix:@"Here are the current top news"]) {
+        [self.nextImage setImage:[UIImage imageNamed:@"News"]];
+    } else if([utterance.speechString hasPrefix:@"Here are the current headlines"]) {
         // Calendar image and label
         self.currentLabel.text = @"Top News";
-        self.nextLabel.text = @"";
-        [self.currentImage setImage:[UIImage imageNamed:@"second"]];
-        [self.nextImage setImage:nil];
+        self.nextLabel.text = @"Done!";
+        [self.currentImage setImage:[UIImage imageNamed:@"News"]];
+        [self.nextImage setImage:[UIImage imageNamed:@"Done"]];
     } else if([utterance.speechString hasPrefix:@"This concludes your briefing."]) {
         // Calendar image and label
-        self.currentLabel.text = @"Later!";
+        self.currentLabel.text = @"Done!";
         self.nextLabel.text = @"";
-        [self.currentImage setImage:nil];
+        [self.currentImage setImage:[UIImage imageNamed:@"Done"]];
         [self.nextImage setImage:nil];
     }
 }
 
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
     // Detect if it's a top news utterance and that there's a next one to speak
-    if([utterance.speechString hasSuffix:@"]"] && self.indexOfCurrentlySpokenItemInTopNews < [self.topNews count]-1) {
-        self.indexOfCurrentlySpokenItemInTopNews++;
-        [self setUpVoiceAndSpeak:[self.topNews objectAtIndex:self.indexOfCurrentlySpokenItemInTopNews]];
+    if([utterance.speechString hasSuffix:@"]"]) {
+        if(self.indexOfCurrentlySpokenItemInTopNews < (int)([self.topNews count]-1)) {
+            self.indexOfCurrentlySpokenItemInTopNews++;
+            [self setUpVoiceAndSpeak:[self.topNews objectAtIndex:self.indexOfCurrentlySpokenItemInTopNews]];
+        } else if(self.indexOfCurrentlySpokenItemInTopNews == [self.topNews count]-1) {
+            // Say goodbye
+            [self speakGoodbye];
+        }
+    }
+}
+
+-(void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didCancelSpeechUtterance:(AVSpeechUtterance *)utterance {
+    if([utterance.speechString hasSuffix:@"]"]) {
+        // Say goodbye
+        [self speakGoodbye];
     }
 }
 
