@@ -1,19 +1,19 @@
 //
-//  GenericTests.m
+//  PreferenceTests.m
 //  Kaspa
 //
-//  Created by Nabil Maadarani on 2015-02-02.
+//  Created by Nabil Maadarani on 2015-04-09.
 //  Copyright (c) 2015 Nabil Maadarani. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface GenericTests : XCTestCase
+@interface PreferenceTests : XCTestCase
 
 @end
 
-@implementation GenericTests
+@implementation PreferenceTests
 
 - (void)setUp {
     [super setUp];
@@ -25,11 +25,6 @@
     [super tearDown];
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
+
 
 @end

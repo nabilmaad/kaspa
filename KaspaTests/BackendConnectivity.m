@@ -26,13 +26,6 @@
     [super tearDown];
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
-
 // Test if we are able to connect to the AWS backend
 - (void)testConnectionToAwsBackend {
     NSString *awsBackendIndexPage = [NSString stringWithFormat:@"%@%@", BackendUrl, IndexFile];
@@ -50,6 +43,13 @@
     NSString *todayUrl = [NSString stringWithFormat:@"%@%@", TodayChannelUrl, todayDate];
     
     [self testConnectionTo:todayUrl withHttpContentType:@"text/plain"];
+}
+
+// Test if we are able to connect to the Weather channel
+- (void)testConnectionToWeather {
+    // Weather in Gatineau
+    NSString *weatherPage = [NSString stringWithFormat:@"%@45.45,-75.75", WeatherChannelUrl];
+    [self testConnectionTo:weatherPage withHttpContentType:@"application/json"];
 }
 
 // Test if we are able to connect to the Top News channel
@@ -82,7 +82,7 @@
                                           // HTTP response must be equal to original URL
                                           XCTAssertEqualObjects(httpResponse.URL.absoluteString, URL.absoluteString, @"HTTP response URL should be equal to original URL");
                                           // HTTP must be text/html
-                                          XCTAssertEqualObjects(httpResponse.MIMEType, httpContentType, @"HTTP response content type is wrong");
+                                          XCTAssertEqualObjects(httpResponse.MIMEType, httpContentType, @"HTTP response content type must be %@", httpContentType);
                                       } else {
                                           XCTFail(@"Response was not NSHTTPURLResponse");
                                       }
