@@ -104,7 +104,7 @@
     if([cellChannel isEqualToString:@"Today"]) {
         // Today
         cell.textLabel.text = @"Today Information";
-        cellImage = [UIImage imageNamed:@"Calendar"];
+        cellImage = [UIImage imageNamed:@"Today"];
     } else if([cellChannel isEqualToString:@"Weather"]) {
         // Weather
         cell.textLabel.text = @"Weather Information";

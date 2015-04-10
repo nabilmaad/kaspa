@@ -386,6 +386,8 @@
             // Say goodbye
             [self speakGoodbye];
         }
+    } else if([utterance.speechString hasSuffix:@"Have a wonderful day!"]) {
+        [self.playButton setImage:[UIImage imageNamed:@"Play"]];
     }
 }
 
