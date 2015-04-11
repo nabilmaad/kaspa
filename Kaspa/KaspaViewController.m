@@ -21,10 +21,20 @@
 @property (weak, nonatomic) IBOutlet UILabel *nextLabel;
 @property (strong, nonatomic) NSMutableArray *topNews;
 @property int indexOfCurrentlySpokenItemInTopNews;
+@property (strong, nonatomic) NSString *topNewsStringBeingSpoken;
 @property (nonatomic, strong) NSManagedObjectContext *savedTopicDatabaseContext;
 @end
 
 @implementation KaspaViewController
+
+// Lazy instantiation of topNewsStringBeingSpoken
+-(NSString *)topNtopNewsStringBeingSpokenews {
+    if(!_topNewsStringBeingSpoken) {
+        _topNewsStringBeingSpoken = [[NSString alloc] init];
+    }
+    return _topNewsStringBeingSpoken;
+}
+
 
 // Lazy instantiation of the top news array
 -(NSMutableArray *)topNews {
@@ -125,12 +135,12 @@
         self.speechSynthesizer.delegate = self;
 
         // Speak topics if they exist
-        if([self.briefing objectForKey:@"Today"])
-            [self speakToday];
-        if([self.briefing objectForKey:@"Weather"])
-            [self speakWeather];
-        if([self.briefing objectForKey:@"Calendar Events"])
-            [self speakCalendarEvents];
+//        if([self.briefing objectForKey:@"Today"])
+//            [self speakToday];
+//        if([self.briefing objectForKey:@"Weather"])
+//            [self speakWeather];
+//        if([self.briefing objectForKey:@"Calendar Events"])
+//            [self speakCalendarEvents];
         if([self.briefing objectForKey:@"Top News"])
             [self speakTopNews];
 
@@ -233,7 +243,31 @@
     } else if([currentSubject isEqualToString:@"Calendar Events"]) {
         [self speakTopNews];
     }  else if([currentSubject isEqualToString:@"Top News"]) {
-        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+        NSDictionary *topNewsOfBriefing = [self.briefing objectForKey:@"Top News"];
+        // Skip from headline to next
+        if([topNewsOfBriefing objectForKey:self.topNewsStringBeingSpoken]) {
+            // Do nothing as the next utterance will be triggered in the delegate
+        } else {
+            // A headline is being spoken
+            
+            // Check if there's a headline coming up, and speak it
+            bool foundHeadline = false;
+            for(int i=self.indexOfCurrentlySpokenItemInTopNews; i<[self.topNews count]; i++) {
+                // Without ending "]"
+                NSString *itemInTopNewsArray = [((AVSpeechUtterance *)self.topNews[i]).speechString
+                                                substringToIndex:[((AVSpeechUtterance *)self.topNews[i]).speechString length] - 1];
+                if([topNewsOfBriefing objectForKey:itemInTopNewsArray]) {
+                    foundHeadline = true;
+                    self.indexOfCurrentlySpokenItemInTopNews = i-1;
+                    break;
+                }
+            }
+            
+            // Didn't find headline => Say good bye
+            if(!foundHeadline) {
+                [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+            }
+        }
     }
 }
 
@@ -337,7 +371,6 @@
             NSLog(@"Fingers spread");
             [self playButtonTapped:nil];
             break;
-            
     }
 }
 
@@ -374,6 +407,10 @@
         [self.currentImage setImage:[UIImage imageNamed:@"Done"]];
         [self.nextImage setImage:nil];
     }
+    
+    // Save top news sentence spoken
+    if([self.currentLabel.text isEqual:@"Top News"])
+        self.topNewsStringBeingSpoken = [utterance.speechString substringToIndex:[utterance.speechString length] - 1];
 }
 
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
