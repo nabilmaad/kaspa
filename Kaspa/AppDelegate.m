@@ -39,10 +39,10 @@
     self.savedTopicDatabaseContext = [self createMainQueueManagedObjectContext];
     
     // Ask user to allow notifications if it's the first launch
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AskedForNotifications"]) {
         // app already launched
     } else {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AskedForNotifications"];
         [[NSUserDefaults standardUserDefaults] synchronize];
 
         // This is the first launch ever - register notifications
@@ -121,7 +121,7 @@
     int minutesSinceSleep = [now timeIntervalSinceDate:sleepTime]/60;
     
 #warning Remove later on
-    bool testingFetch = YES;
+    bool testingFetch = NO;
     
     if(testingFetch || (minutesTillWakeUp <= 100 && minutesTillWakeUp > 0)) {
         NSLog(@"It is time. See if data fetch was successful");
@@ -164,7 +164,7 @@
     } else {
         completionHandler(UIBackgroundFetchResultNoData);
     }
-    
+    [self fireBriefingReadyNotification];
     // Check if data has been successfully fetched, and we still didn't fire the notification
     if(self.dataFetchForTodaySuccessful &&
        ![[NSUserDefaults standardUserDefaults] boolForKey:@"HasSentNotification"]) {
@@ -345,10 +345,6 @@
     if (localNotif == nil)
         return;
     
-    // Fire notification ASAP (1 second from now)
-//    localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
-//    localNotif.timeZone = [NSTimeZone defaultTimeZone];
-    
     // Set notification text
     localNotif.alertBody = @"You can listen to your daily briefing."; // Message
     localNotif.alertAction = @"Listen"; // Action button title
@@ -359,7 +355,17 @@
     localNotif.applicationIconBadgeNumber = 1;
     localNotif.soundName = UILocalNotificationDefaultSoundName;
     
+    // Set badge on Kaspa tab
+    UITabBarItem *kaspaTab = [((UITabBarController *)self.window.rootViewController).tabBar.items objectAtIndex:1];
+    kaspaTab.badgeValue = @"1";
+    
     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    // Open the kaspa tab
+    UITabBarController *tabBar = (UITabBarController *)self.window.rootViewController;
+    tabBar.selectedIndex = 1;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

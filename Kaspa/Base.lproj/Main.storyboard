@@ -212,12 +212,25 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xTm-7s-yij">
-                                <rect key="frame" x="238" y="418" width="125" height="125"/>
+                                <rect key="frame" x="250.5" y="443" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="8oo-Kb-cwo"/>
-                                    <constraint firstAttribute="height" constant="125" id="JZv-Ll-PJo"/>
+                                    <constraint firstAttribute="width" constant="100" id="8oo-Kb-cwo"/>
+                                    <constraint firstAttribute="height" constant="100" id="JZv-Ll-PJo"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SMP-pc-Eax">
+                                <rect key="frame" x="200" y="111" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="OIL-KM-0I2"/>
+                                    <constraint firstAttribute="height" constant="200" id="Pnn-kQ-WqP"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xa-ZP-qpD">
+                                <rect key="frame" x="279" y="319" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -227,14 +240,18 @@
                             <constraint firstItem="NEc-IE-vx5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7B4-z2-5aN" secondAttribute="bottom" constant="8" symbolic="YES" id="HfG-kC-vSw"/>
                             <constraint firstItem="7B4-z2-5aN" firstAttribute="top" secondItem="joQ-gb-tKt" secondAttribute="bottom" constant="8" symbolic="YES" id="J5i-bo-IEz"/>
                             <constraint firstItem="bQa-o2-a5d" firstAttribute="top" secondItem="NEc-IE-vx5" secondAttribute="bottom" constant="8" symbolic="YES" id="J94-e3-AOg"/>
+                            <constraint firstItem="SMP-pc-Eax" firstAttribute="top" secondItem="CIY-wM-aY3" secondAttribute="bottom" constant="91" id="W8o-4m-mpH"/>
+                            <constraint firstItem="5xa-ZP-qpD" firstAttribute="top" secondItem="SMP-pc-Eax" secondAttribute="bottom" constant="8" symbolic="YES" id="XYa-de-LtJ"/>
                             <constraint firstItem="joQ-gb-tKt" firstAttribute="leading" secondItem="NEc-IE-vx5" secondAttribute="leading" id="akI-1Z-ICF"/>
                             <constraint firstItem="Lcq-fG-gt1" firstAttribute="top" secondItem="xTm-7s-yij" secondAttribute="bottom" constant="8" symbolic="YES" id="dDF-BG-sIo"/>
                             <constraint firstAttribute="centerX" secondItem="bQa-o2-a5d" secondAttribute="centerX" id="eBp-vY-69F"/>
                             <constraint firstAttribute="centerX" secondItem="joQ-gb-tKt" secondAttribute="centerX" id="eK8-88-G55"/>
                             <constraint firstAttribute="centerX" secondItem="7B4-z2-5aN" secondAttribute="centerX" id="esF-wh-Hit"/>
+                            <constraint firstAttribute="centerX" secondItem="5xa-ZP-qpD" secondAttribute="centerX" id="gZA-9z-nbw"/>
                             <constraint firstItem="Lcq-fG-gt1" firstAttribute="top" secondItem="bQa-o2-a5d" secondAttribute="bottom" constant="123" id="iTQ-or-xAK"/>
                             <constraint firstItem="joQ-gb-tKt" firstAttribute="top" secondItem="CIY-wM-aY3" secondAttribute="bottom" constant="8" symbolic="YES" id="mLb-c6-kdb"/>
                             <constraint firstItem="bQa-o2-a5d" firstAttribute="top" secondItem="NEc-IE-vx5" secondAttribute="bottom" constant="8" id="oze-8H-VrK"/>
+                            <constraint firstAttribute="centerX" secondItem="SMP-pc-Eax" secondAttribute="centerX" id="q7S-KC-l74"/>
                             <constraint firstItem="NEc-IE-vx5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7B4-z2-5aN" secondAttribute="bottom" constant="8" symbolic="YES" id="rZf-Qb-aEI"/>
                             <constraint firstItem="xTm-7s-yij" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bQa-o2-a5d" secondAttribute="bottom" constant="8" symbolic="YES" id="tBh-PY-ijr"/>
                             <constraint firstItem="NEc-IE-vx5" firstAttribute="top" secondItem="7B4-z2-5aN" secondAttribute="bottom" constant="42" id="uNn-Y4-ZL1"/>
@@ -259,6 +276,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Kaspa" image="Kaspa" id="Fb5-7B-wHx"/>
                     <connections>
+                        <outlet property="centerImage" destination="SMP-pc-Eax" id="EsV-oP-2Md"/>
+                        <outlet property="centerLabel" destination="5xa-ZP-qpD" id="2ma-n6-b3W"/>
                         <outlet property="currentImage" destination="joQ-gb-tKt" id="0Pc-qa-BXr"/>
                         <outlet property="currentLabel" destination="7B4-z2-5aN" id="CAr-T7-VkD"/>
                         <outlet property="nextImage" destination="NEc-IE-vx5" id="ovv-R4-Wt4"/>
