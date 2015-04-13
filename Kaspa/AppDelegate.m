@@ -164,7 +164,7 @@
     } else {
         completionHandler(UIBackgroundFetchResultNoData);
     }
-    [self fireBriefingReadyNotification];
+    
     // Check if data has been successfully fetched, and we still didn't fire the notification
     if(self.dataFetchForTodaySuccessful &&
        ![[NSUserDefaults standardUserDefaults] boolForKey:@"HasSentNotification"]) {
